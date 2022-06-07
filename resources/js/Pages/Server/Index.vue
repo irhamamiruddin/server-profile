@@ -12,75 +12,77 @@
                                 <div class="m-5 flex">
                                     <div class="rounded-md bg-white border border-gray-200 p-5 w-3/4">
                                         <div class="accordion" id="accordionExample5">
+                                            <!-- Topic 1 -->
                                             <div class="accordion-item bg-white border border-gray-200">
                                                 <h2 class="accordion-header mb-0" id="headingOne5">
-                                                <button class="
-                                                    accordion-button
-                                                    relative
-                                                    flex
-                                                    items-center
-                                                    w-full
-                                                    py-4
-                                                    px-5
-                                                    text-base text-gray-800 text-left
-                                                    bg-white
-                                                    border-0
-                                                    rounded-none
-                                                    transition
-                                                    focus:outline-none
-                                                " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne5" aria-expanded="true"
-                                                    aria-controls="collapseOne5">
-                                                    My TNT Server (https://my.tnt.com)
-                                                </button>
+                                                    <button class="
+                                                        accordion-button
+                                                        relative
+                                                        flex
+                                                        items-center
+                                                        w-full
+                                                        py-4
+                                                        px-5
+                                                        text-base text-gray-800 text-left
+                                                        bg-white
+                                                        border-0
+                                                        rounded-none
+                                                        transition
+                                                        focus:outline-none
+                                                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne5" aria-expanded="true"
+                                                        aria-controls="collapseOne5">
+                                                        My TNT Server (https://my.tnt.com)
+                                                    </button>
                                                 </h2>
                                                 <div id="collapseOne5" class="accordion-collapse collapse show" aria-labelledby="headingOne5">
-                                                <div class="accordion-body py-4 px-5">
-                                                    <div class="m-2 grid grid-cols-6">
-                                                        <p>Environment</p>
-                                                        <p class="col-span-3">TNT</p>
-                                                        <p>Credentials</p>
-                                                        <img src=""/>
+                                                    <div class="accordion-body py-4 px-5">
+                                                        <div class="m-2 grid grid-cols-6">
+                                                            <p>Environment</p>
+                                                            <p class="col-span-3">TNT</p>
+                                                            <p>Credentials</p>
+                                                            <img src=""/>
+                                                        </div>
+                                                        <div class="m-2 grid grid-cols-6">
+                                                            <p>IP Address</p>
+                                                            <p class="col-span-5">127.20.56.61</p>
+                                                        </div>
+                                                        <div class="m-2 grid grid-cols-6">
+                                                            <p>Port</p>
+                                                            <p class="col-span-5">63</p>
+                                                        </div>
+                                                        <div class="m-2 grid grid-cols-6">
+                                                            <p>DNS</p>
+                                                            <p class="col-span-5">8.8.8.8</p>
+                                                        </div>
+                                                        <div class="m-2 grid grid-cols-6">
+                                                            <p>OS</p>
+                                                            <p class="col-span-5">Linux 3.10.0-1160.el7.x86_64</p>
+                                                        </div>
                                                     </div>
-                                                    <div class="m-2 grid grid-cols-6">
-                                                        <p>IP Address</p>
-                                                        <p class="col-span-5">127.20.56.61</p>
-                                                    </div>
-                                                    <div class="m-2 grid grid-cols-6">
-                                                        <p>Port</p>
-                                                        <p class="col-span-5">63</p>
-                                                    </div>
-                                                    <div class="m-2 grid grid-cols-6">
-                                                        <p>DNS</p>
-                                                        <p class="col-span-5">8.8.8.8</p>
-                                                    </div>
-                                                    <div class="m-2 grid grid-cols-6">
-                                                        <p>OS</p>
-                                                        <p class="col-span-5">Linux 3.10.0-1160.el7.x86_64</p>
-                                                    </div>
-                                                </div>
                                                 </div>
                                             </div>
+                                            <!-- Topic 2 -->
                                             <div class="accordion-item bg-white border border-gray-200">
                                                 <h2 class="accordion-header mb-0" id="headingTwo5">
-                                                <button class="
-                                                    accordion-button
-                                                    collapsed
-                                                    relative
-                                                    flex
-                                                    items-center
-                                                    w-full
-                                                    py-4
-                                                    px-5
-                                                    text-base text-gray-800 text-left
-                                                    bg-white
-                                                    border-0
-                                                    rounded-none
-                                                    transition
-                                                    focus:outline-none
-                                                " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo5" aria-expanded="false"
-                                                    aria-controls="collapseTwo5">
-                                                    Hardware Specifications
-                                                </button>
+                                                    <button class="
+                                                        accordion-button
+                                                        collapsed
+                                                        relative
+                                                        flex
+                                                        items-center
+                                                        w-full
+                                                        py-4
+                                                        px-5
+                                                        text-base text-gray-800 text-left
+                                                        bg-white
+                                                        border-0
+                                                        rounded-none
+                                                        transition
+                                                        focus:outline-none
+                                                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo5" aria-expanded="false"
+                                                        aria-controls="collapseTwo5">
+                                                        Hardware Specifications
+                                                    </button>
                                                 </h2>
                                                 <div id="collapseTwo5" class="accordion-collapse collapse" aria-labelledby="headingTwo5">
                                                     <div class="accordion-body py-4 px-5">
@@ -102,6 +104,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- Topic 3 -->
                                             <div class="accordion-item bg-white border border-gray-200">
                                                 <h2 class="accordion-header mb-0" id="headingThree5">
                                                     <button class="
@@ -139,25 +142,25 @@
                                             </div>
                                             <div class="accordion-item bg-white border border-gray-200">
                                                 <h2 class="accordion-header mb-0" id="headingFour5">
-                                                <button class="
-                                                    accordion-button
-                                                    collapsed
-                                                    relative
-                                                    flex
-                                                    items-center
-                                                    w-full
-                                                    py-4
-                                                    px-5
-                                                    text-base text-gray-800 text-left
-                                                    bg-white
-                                                    border-0
-                                                    rounded-none
-                                                    transition
-                                                    focus:outline-none
-                                                " type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour5" aria-expanded="false"
-                                                    aria-controls="collapseFour5">
-                                                    Team Members
-                                                </button>
+                                                    <button class="
+                                                        accordion-button
+                                                        collapsed
+                                                        relative
+                                                        flex
+                                                        items-center
+                                                        w-full
+                                                        py-4
+                                                        px-5
+                                                        text-base text-gray-800 text-left
+                                                        bg-white
+                                                        border-0
+                                                        rounded-none
+                                                        transition
+                                                        focus:outline-none
+                                                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour5" aria-expanded="false"
+                                                        aria-controls="collapseFour5">
+                                                        Team Members
+                                                    </button>
                                                 </h2>
                                                 <div id="collapseFour5" class="accordion-collapse collapse" aria-labelledby="headingFour5">
                                                     <div class="accordion-body py-4 px-5">
@@ -165,27 +168,28 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- Topic 5 -->
                                             <div class="accordion-item bg-white border border-gray-200">
                                                 <h2 class="accordion-header mb-0" id="headingFive5">
-                                                <button class="
-                                                    accordion-button
-                                                    collapsed
-                                                    relative
-                                                    flex
-                                                    items-center
-                                                    w-full
-                                                    py-4
-                                                    px-5
-                                                    text-base text-gray-800 text-left
-                                                    bg-white
-                                                    border-0
-                                                    rounded-none
-                                                    transition
-                                                    focus:outline-none
-                                                " type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive5" aria-expanded="false"
-                                                    aria-controls="collapseFive5">
-                                                    Applications
-                                                </button>
+                                                    <button class="
+                                                        accordion-button
+                                                        collapsed
+                                                        relative
+                                                        flex
+                                                        items-center
+                                                        w-full
+                                                        py-4
+                                                        px-5
+                                                        text-base text-gray-800 text-left
+                                                        bg-white
+                                                        border-0
+                                                        rounded-none
+                                                        transition
+                                                        focus:outline-none
+                                                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive5" aria-expanded="false"
+                                                        aria-controls="collapseFive5">
+                                                        Applications
+                                                    </button>
                                                 </h2>
                                                 <div id="collapseFive5" class="accordion-collapse collapse" aria-labelledby="headingFive5">
                                                     <div class="accordion-body py-4 px-5">
