@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Server;
-use App\Models\ServerActivity;
+use App\Models\Application;
+use App\Models\ApplicationInfo;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
-class ServerController extends Controller
+class ApplicationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class ServerController extends Controller
      */
     public function index()
     {
-        $servers = Server::paginate(5);
-        $activities = ServerActivity::paginate(5);
-        return Inertia::render('Server/Index',compact('servers','activities'));
+        $applications = Application::paginate(1);
+        return Inertia::render('Application/Index',compact('applications'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -50,14 +50,7 @@ class ServerController extends Controller
      */
     public function show($id)
     {
-        $server = Server::find($id);
-        $documentations = $server->documentations;
-        $applications = $server->applications;
-        $server_details = $server->server_details;
-        $members = $server->members;
-        $projects = $server->projects;
-        $activities =  $server->activities;
-        return Inertia::render('Server/Show',compact('server','activities'));
+        //
     }
 
     /**

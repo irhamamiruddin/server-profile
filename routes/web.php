@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServerController;
+use App\Http\Controllers\ApplicationController;
 use Inertia\Inertia;
 
 /*
@@ -35,4 +36,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('servers', ServerController::class);
+    Route::resource('applications', ApplicationController::class);
 });
