@@ -20,9 +20,9 @@ class Application extends Model
     ];
 
     // Relationship Declarations
-    public function application_info()
+    public function application_detail()
     {
-        return $this->belongsTo(ApplicationInfo::class);
+        return $this->belongsTo(ApplicationDetail::class);
     }
 
     public function server()

@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('application_info', function (Blueprint $table) {
+        Schema::create('application_details', function (Blueprint $table) {
             $table->id();
-            $table->integer("server_id");
             $table->string("v_technology");
             $table->string("config_file");
             $table->timestamps();
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('application_info');
+        Schema::dropIfExists('application_details');
     }
 };

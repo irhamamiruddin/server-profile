@@ -34,11 +34,6 @@ class Server extends Model
     public function applications()
     {
         return $this->hasMany(Application::class);
-    }//mark
-
-    public function application_info()
-    {
-        return $this->hasMany(ApplicationInfo::class);
     }
 
     public function members()
