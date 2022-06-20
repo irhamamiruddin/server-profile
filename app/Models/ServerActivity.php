@@ -19,21 +19,21 @@ class ServerActivity extends Model
     /**
      * Get the user associated with the ServerActivity
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user_info()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class,'id');
     }
 
     /**
-     * Get the type associated with the ServerActivity
+     * Get the type that owns the ServerActivity
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function type()
     {
-        dd($this->hasOne(ActivityType::class));
+        return $this->belongsTo(ActivityType::class);
     }
 
     /**

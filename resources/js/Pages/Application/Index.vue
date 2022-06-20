@@ -41,13 +41,15 @@
                                                                         scope="col"
                                                                         class="text-sm font-bold text-gray-900 px-6 py-4"
                                                                     >
+                                                                        Server
                                                                         Name
                                                                     </th>
                                                                     <th
                                                                         scope="col"
                                                                         class="text-sm font-bold text-gray-900 px-6 py-4"
                                                                     >
-                                                                        Domain
+                                                                        Application
+                                                                        Name
                                                                     </th>
                                                                     <th
                                                                         scope="col"
@@ -100,7 +102,7 @@
                                                                         class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                                                     >
                                                                         {{
-                                                                            application.name
+                                                                            application.server_id
                                                                         }}
                                                                     </td>
                                                                     <td
@@ -114,7 +116,19 @@
                                                                         class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                                                     >
                                                                         <span
+                                                                            v-if="
+                                                                                application.status ==
+                                                                                'Active'
+                                                                            "
                                                                             class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-green-500"
+                                                                        >
+                                                                            {{
+                                                                                application.status
+                                                                            }}
+                                                                        </span>
+                                                                        <span
+                                                                            v-else
+                                                                            class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-red-500"
                                                                         >
                                                                             {{
                                                                                 application.status
@@ -128,7 +142,7 @@
                                                                             :href="
                                                                                 route(
                                                                                     'applications.show',
-                                                                                    application.id
+                                                                                    application.server_id
                                                                                 )
                                                                             "
                                                                             title="View"

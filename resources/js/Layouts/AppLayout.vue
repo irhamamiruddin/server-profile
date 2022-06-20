@@ -461,7 +461,11 @@ const logout = () => {
                                                 Profile
                                             </JetDropdownLink>
 
-                                            <JetDropdownLink>
+                                            <JetDropdownLink
+                                                :href="
+                                                    route('activities.index')
+                                                "
+                                            >
                                                 Activity
                                             </JetDropdownLink>
 

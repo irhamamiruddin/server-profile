@@ -15,12 +15,12 @@ class ActivityType extends Model
     ];
 
     /**
-     * Get the activity that owns the ActivityType
+     * Get all of the activities for the ActivityType
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function activity()
+    public function activities()
     {
-        return $this->belongsTo(ServerActivity::class);
+        return $this->hasMany(ServerActivity::class);
     }
 }

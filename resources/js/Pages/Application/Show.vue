@@ -46,30 +46,6 @@
                                                     <div
                                                         class="accordion-body py-4 px-5"
                                                     >
-                                                        <div
-                                                            class="flex justify-end"
-                                                        >
-                                                            <button
-                                                                class="p-2"
-                                                                type="button"
-                                                                title="Open"
-                                                            >
-                                                                <svg
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 text-gray-500"
-                                                                    fill="none"
-                                                                    viewBox="0 0 24 24"
-                                                                    stroke="currentColor"
-                                                                    stroke-width="2"
-                                                                >
-                                                                    <path
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
                                                         <div class="m-2 p-2">
                                                             <div
                                                                 class="m-2 grid grid-cols-4"

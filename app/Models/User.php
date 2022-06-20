@@ -62,10 +62,10 @@ class User extends Authenticatable
     /**
      * Get the server_activity that owns the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function server_activity()
     {
-        return $this->belongsTo(ServerActivity::class);
+        return $this->hasOne(ServerActivity::class,'id');
     }
 }

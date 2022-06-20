@@ -113,7 +113,19 @@
                                                                         class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                                                     >
                                                                         <span
+                                                                            v-if="
+                                                                                server.status ==
+                                                                                'Active'
+                                                                            "
                                                                             class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-green-500"
+                                                                        >
+                                                                            {{
+                                                                                server.status
+                                                                            }}
+                                                                        </span>
+                                                                        <span
+                                                                            v-else
+                                                                            class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-red-500"
                                                                         >
                                                                             {{
                                                                                 server.status
@@ -172,104 +184,9 @@
                                     </div>
 
                                     <div class="flex flex-col gap-3">
-                                        <!-- Activity List -->
-                                        <div
-                                            class="p-5 rounded-md bg-white border border-gray-200"
-                                        >
-                                            <p class="text-lg">Activity</p>
-                                            <div class="my-5">
-                                                <div
-                                                    v-for="activity in activities.data"
-                                                    :key="activity"
-                                                    class="grid grid-flow-col-dense m-2 p-0"
-                                                >
-                                                    <span
-                                                        class="w-14 p-1 place-content-center"
-                                                    >
-                                                        <img
-                                                            class="h-10 w-10 rounded-full object-cover"
-                                                            :src="
-                                                                $page.props.user
-                                                                    .profile_photo_url
-                                                            "
-                                                            :alt="
-                                                                $page.props.user
-                                                                    .name
-                                                            "
-                                                        />
-                                                    </span>
-                                                    <div
-                                                        class="grid place-content-center"
-                                                    >
-                                                        <p
-                                                            class="italic text-gray-500 text-xs mb-1"
-                                                        >
-                                                            {{
-                                                                activity.created_at
-                                                            }}
-                                                        </p>
-                                                        <p class="text-sm">
-                                                            {{ activity.name }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="grid grid-flow-col-dense m-2 p-0"
-                                                >
-                                                    <span
-                                                        class="w-14 p-1 place-content-center"
-                                                    >
-                                                        <img
-                                                            src="/img/user.png"
-                                                            alt="Activity"
-                                                        />
-                                                    </span>
-                                                    <div
-                                                        class="grid place-content-center"
-                                                    >
-                                                        <p
-                                                            class="italic text-gray-500 text-xs mb-1"
-                                                        >
-                                                            18/05/2022 12:10 pm
-                                                        </p>
-                                                        <p class="text-sm">
-                                                            Updated API
-                                                            Documentation
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="grid grid-flow-col-dense m-2 p-0"
-                                                >
-                                                    <span
-                                                        class="w-14 p-1 place-content-center"
-                                                    >
-                                                        <img
-                                                            src="/img/user.png"
-                                                            alt="Activity"
-                                                        />
-                                                    </span>
-                                                    <div
-                                                        class="grid place-content-center"
-                                                    >
-                                                        <p
-                                                            class="italic text-gray-500 text-xs mb-1"
-                                                        >
-                                                            18/05/2022 12:10 pm
-                                                        </p>
-                                                        <p class="text-sm">
-                                                            Updated API
-                                                            Documentation
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm text-center">
-                                                    Show more...
-                                                </p>
-                                            </div>
-                                        </div>
+                                        <ActivityList
+                                            :activities="activities"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -287,6 +204,7 @@ import { Inertia } from "@inertiajs/inertia";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetPagination from "@/Components/Pagination.vue";
+import ActivityList from "@/Pages/ActivityList.vue";
 
 export default {
     components: {
@@ -294,6 +212,7 @@ export default {
         JetButton,
         InertiaLink,
         JetPagination,
+        ActivityList,
     },
 
     props: ["servers", "activities"],

@@ -486,7 +486,19 @@
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
                                                                             <span
+                                                                                v-if="
+                                                                                    member.status ==
+                                                                                    'Active'
+                                                                                "
                                                                                 class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-green-500"
+                                                                            >
+                                                                                {{
+                                                                                    member.status
+                                                                                }}
+                                                                            </span>
+                                                                            <span
+                                                                                v-else
+                                                                                class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-red-500"
                                                                             >
                                                                                 {{
                                                                                     member.status
@@ -531,26 +543,36 @@
                                                         <div
                                                             class="flex justify-end"
                                                         >
-                                                            <button
-                                                                class="p-2"
-                                                                type="button"
-                                                                title="Open"
+                                                            <inertia-link
+                                                                :href="
+                                                                    route(
+                                                                        'applications.show',
+                                                                        server.id
+                                                                    )
+                                                                "
+                                                                title="Applications"
                                                             >
-                                                                <svg
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6 text-gray-500"
-                                                                    fill="none"
-                                                                    viewBox="0 0 24 24"
-                                                                    stroke="currentColor"
-                                                                    stroke-width="2"
+                                                                <button
+                                                                    class="p-2"
+                                                                    type="button"
+                                                                    title="Open"
                                                                 >
-                                                                    <path
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                                                                    />
-                                                                </svg>
-                                                            </button>
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        class="h-6 w-6 text-gray-500"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        stroke="currentColor"
+                                                                        stroke-width="2"
+                                                                    >
+                                                                        <path
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                            </inertia-link>
                                                         </div>
                                                         <div class="m-1">
                                                             <table
@@ -608,7 +630,19 @@
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
                                                                             <span
+                                                                                v-if="
+                                                                                    application.status ==
+                                                                                    'Active'
+                                                                                "
                                                                                 class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-green-500"
+                                                                            >
+                                                                                {{
+                                                                                    application.status
+                                                                                }}
+                                                                            </span>
+                                                                            <span
+                                                                                v-else
+                                                                                class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-red-500"
                                                                             >
                                                                                 {{
                                                                                     application.status
@@ -730,103 +764,10 @@
                                     </div>
 
                                     <div class="flex flex-col gap-3">
-                                        <!-- Activity List -->
-                                        <div
-                                            class="p-5 rounded-md bg-white border border-gray-200"
-                                        >
-                                            <p class="text-lg">Activity</p>
-                                            <div class="my-5">
-                                                <div
-                                                    v-for="activity in server.activities"
-                                                    :key="activity"
-                                                    class="grid grid-flow-col-dense m-2 p-0"
-                                                >
-                                                    <span
-                                                        class="w-14 p-1 place-content-center"
-                                                    >
-                                                        <img
-                                                            class="h-10 w-10 rounded-full object-cover"
-                                                            :src="
-                                                                $page.props.user
-                                                                    .profile_photo_url
-                                                            "
-                                                            :alt="
-                                                                $page.props.user
-                                                                    .name
-                                                            "
-                                                        />
-                                                    </span>
-                                                    <div
-                                                        class="grid place-content-center"
-                                                    >
-                                                        <p
-                                                            class="italic text-gray-500 text-xs mb-1"
-                                                        >
-                                                            {{
-                                                                activity.created_at
-                                                            }}
-                                                        </p>
-                                                        <p class="text-sm">
-                                                            {{ activity.name }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="grid grid-flow-col-dense m-2 p-0"
-                                                >
-                                                    <span
-                                                        class="w-14 p-1 place-content-center"
-                                                    >
-                                                        <img
-                                                            src="/img/user.png"
-                                                            alt="Activity"
-                                                        />
-                                                    </span>
-                                                    <div
-                                                        class="grid place-content-center"
-                                                    >
-                                                        <p
-                                                            class="italic text-gray-500 text-xs mb-1"
-                                                        >
-                                                            18/05/2022 12:10 pm
-                                                        </p>
-                                                        <p class="text-sm">
-                                                            Updated API
-                                                            Documentation
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    class="grid grid-flow-col-dense m-2 p-0"
-                                                >
-                                                    <span
-                                                        class="w-14 p-1 place-content-center"
-                                                    >
-                                                        <img
-                                                            src="/img/user.png"
-                                                            alt="Activity"
-                                                        />
-                                                    </span>
-                                                    <div
-                                                        class="grid place-content-center"
-                                                    >
-                                                        <p
-                                                            class="italic text-gray-500 text-xs mb-1"
-                                                        >
-                                                            18/05/2022 12:10 pm
-                                                        </p>
-                                                        <p class="text-sm">
-                                                            Updated API
-                                                            Documentation
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p class="text-sm text-center">
-                                                    Show more...
-                                                </p>
-                                            </div>
+                                        <div class="flex flex-col gap-3">
+                                            <ActivityList
+                                                :activities="activities"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -844,12 +785,14 @@ import { InertiaLink } from "@inertiajs/inertia-vue3";
 import { Inertia } from "@inertiajs/inertia";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import JetButton from "@/Jetstream/Button.vue";
+import ActivityList from "@/Pages/ActivityList.vue";
 
 export default {
     components: {
         AppLayout,
         JetButton,
         InertiaLink,
+        ActivityList,
     },
 
     props: ["server", "activities"],

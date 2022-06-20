@@ -17,7 +17,8 @@ class ServerController extends Controller
     public function index()
     {
         $servers = Server::paginate(5);
-        $activities = ServerActivity::paginate(5);
+        $activities = ServerActivity::orderBy('id', 'desc')->limit(5)->get();
+        $activities->user_info;
         return Inertia::render('Server/Index',compact('servers','activities'));
     }
 
