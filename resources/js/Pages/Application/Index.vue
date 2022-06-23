@@ -102,7 +102,9 @@
                                                                         class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                                                     >
                                                                         {{
-                                                                            application.server_id
+                                                                            application
+                                                                                .server
+                                                                                .name
                                                                         }}
                                                                     </td>
                                                                     <td

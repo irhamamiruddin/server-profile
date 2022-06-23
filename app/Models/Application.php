@@ -37,4 +37,18 @@ class Application extends Model
             get: fn ($value) => ucfirst($value),
         );
     }
+
+    protected function healthStatus(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucfirst($value),
+        );
+    }
+
+    protected function healthLastChecked(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => now()->parse($value)->diffForHumans(),
+        );
+    }
 }

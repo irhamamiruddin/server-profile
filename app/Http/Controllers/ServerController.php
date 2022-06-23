@@ -17,8 +17,7 @@ class ServerController extends Controller
     public function index()
     {
         $servers = Server::paginate(5);
-        $activities = ServerActivity::orderBy('id', 'desc')->limit(5)->get();
-        $activities->user_info;
+        $activities = ServerActivity::with('user','type')->orderBy('created_at', 'desc')->limit(5)->get();
         return Inertia::render('Server/Index',compact('servers','activities'));
     }
 
@@ -51,13 +50,8 @@ class ServerController extends Controller
      */
     public function show($id)
     {
-        $server = Server::find($id);
-        $documentations = $server->documentations;
-        $applications = $server->applications;
-        $server_details = $server->server_details;
-        $members = $server->members;
-        $projects = $server->projects;
-        $activities =  $server->activities;
+        $server = Server::with('documentations','applications','server_details','members','projects')->find($id);
+        $activities = ServerActivity::with('user','type')->where('server_id','=',$id)->orderBy('created_at', 'desc')->limit(5)->get();
         return Inertia::render('Server/Show',compact('server','activities'));
     }
 

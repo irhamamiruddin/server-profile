@@ -21,9 +21,9 @@ class ServerActivity extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user_info()
+    public function user()
     {
-        return $this->belongsTo(User::class,'id');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -33,7 +33,7 @@ class ServerActivity extends Model
      */
     public function type()
     {
-        return $this->belongsTo(ActivityType::class);
+        return $this->belongsTo(ActivityType::class,'activity_type_id');
     }
 
     /**

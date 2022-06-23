@@ -16,15 +16,26 @@ class ServerDetail extends Model
         'memory',
     ];
 
+    protected function status(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => ucfirst($value)
+        );
+    }
+
     public function server()
     {
         return $this->belongsTo(Server::class);
     }
 
-    protected function memory(): Attribute
+
+    /**
+     * Get all of the storage_detail for the ServerDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function storage_detail(): HasMany
     {
-        return new Attribute(
-			get: fn ($value) => $value." GB"
-        );
+        return $this->hasMany(ServerStorageDetail::class);
     }
 }

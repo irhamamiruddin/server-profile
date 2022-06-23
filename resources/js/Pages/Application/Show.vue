@@ -21,6 +21,8 @@
                                         >
                                             <!-- Parent 1 -->
                                             <div
+                                                v-for="item in details"
+                                                :key="item"
                                                 class="accordion-item bg-white border border-gray-200"
                                             >
                                                 <h2
@@ -54,6 +56,11 @@
                                                                     Virtualization
                                                                 </p>
                                                                 <p
+                                                                    v-if="
+                                                                        item
+                                                                            .application_detail
+                                                                            .v_technology
+                                                                    "
                                                                     class="col-span-3"
                                                                 >
                                                                     Yes
@@ -70,7 +77,11 @@
                                                                     class="col-span-3"
                                                                 >
                                                                     <p>
-                                                                        Docker
+                                                                        {{
+                                                                            item
+                                                                                .application_detail
+                                                                                .v_technology
+                                                                        }}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -83,21 +94,27 @@
                                                                 <p
                                                                     class="col-span-3 flex flex-wrap gap-1"
                                                                 >
-                                                                    docker-compose.yml
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        class="h-6 w-6"
-                                                                        fill="none"
-                                                                        viewBox="0 0 24 24"
-                                                                        stroke="currentColor"
-                                                                        stroke-width="2"
-                                                                    >
-                                                                        <path
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"
-                                                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                                                        />
-                                                                    </svg>
+                                                                    {{
+                                                                        item
+                                                                            .application_detail
+                                                                            .config_file
+                                                                    }}
+                                                                    <button>
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            class="h-6 w-6"
+                                                                            fill="none"
+                                                                            viewBox="0 0 24 24"
+                                                                            stroke="currentColor"
+                                                                            stroke-width="2"
+                                                                        >
+                                                                            <path
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"
+                                                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                                                            />
+                                                                        </svg>
+                                                                    </button>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -182,7 +199,9 @@
                                                                             <p
                                                                                 class="col-span-3"
                                                                             >
-                                                                                my_api_manager
+                                                                                {{
+                                                                                    application.description
+                                                                                }}
                                                                             </p>
                                                                         </div>
                                                                         <div
@@ -227,10 +246,15 @@
                                                                             <p
                                                                                 class="col-span-3"
                                                                             >
-                                                                                Up
-                                                                                to
-                                                                                6
-                                                                                hours**
+                                                                                {{
+                                                                                    application.status
+                                                                                }}
+                                                                                ({{
+                                                                                    application.health_status
+                                                                                }}
+                                                                                {{
+                                                                                    application.health_last_checked
+                                                                                }})
                                                                             </p>
                                                                         </div>
                                                                     </div>
@@ -265,6 +289,6 @@ export default {
         InertiaLink,
     },
 
-    props: ["applications"],
+    props: ["applications", "details"],
 };
 </script>

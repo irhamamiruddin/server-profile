@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Models\ApplicationDetail;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationController extends Controller
 {
@@ -16,7 +17,8 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::paginate(5);
+        $applications = Application::with('server')->paginate(5);
+
         return Inertia::render('Application/Index',compact('applications'));
     }
 
@@ -49,8 +51,10 @@ class ApplicationController extends Controller
      */
     public function show($id)
     {
-        $applications = Application::get()->where('server_id','=',$id);
-        return Inertia::render('Application/Show',compact('applications'));
+        $applications = Application::where('server_id','=',$id)->get();
+        $details = Application::with('application_detail')->where('server_id','=',$id)->groupBy('application_detail_id')->get();
+
+        return Inertia::render('Application/Show',compact('applications','details'));
     }
 
     /**

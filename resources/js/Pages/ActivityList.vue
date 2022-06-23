@@ -10,16 +10,17 @@
                 <span class="w-14 p-1 place-content-center">
                     <img
                         class="h-10 w-10 rounded-full object-cover"
-                        :src="$page.props.user.profile_photo_url"
-                        :alt="$page.props.user.name"
+                        :src="activity.user.profile_photo_url"
+                        :alt="activity.user.name"
+                        :title="activity.user.name"
                     />
                 </span>
-                <div class="grid place-content-center">
+                <div class="w-48">
                     <p class="italic text-gray-500 text-xs mb-1">
                         {{ activity.created_at }}
                     </p>
                     <p class="text-sm">
-                        {{ activity.activity_type_id }}
+                        {{ activity.type.description }}
                     </p>
                 </div>
             </div>
