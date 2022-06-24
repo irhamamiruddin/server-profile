@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\ServerActivity;
+use Illuminate\Database\Eloquent\Builder;
 
 class ActivityController extends Controller
 {
@@ -12,9 +14,18 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Inertia::render('Activity/Index');
+        $queries = ['search','page'];
+        $filters = $request -> all($queries);
+
+        $activities = ServerActivity::with('user','type','server')
+                        ->orderBy('created_at', 'desc')
+                        ->filter($request->only($queries))
+                        ->paginate(5)
+                        ->withQueryString();
+
+        return Inertia::render('Activity/Index',compact('activities','filters'));
     }
 
     /**

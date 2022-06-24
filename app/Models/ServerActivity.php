@@ -47,8 +47,39 @@ class ServerActivity extends Model
     }
 
     // Accessor
-    public function getCreatedAtAttribute($value)
+    // public function getCreatedAtAttribute($value)
+    // {
+    //     return now()->parse($value)->format('d/m/Y, H:i a');
+    // }
+
+    public function createdAt(): Attribute
     {
-        return now()->parse($value)->format('d/m/Y, H:i a');
+        return new Attribute(
+            get: fn ($value) => now()->parse($value)->format('d/m/Y, H:i a'),
+        );
+    }
+
+    // Scope
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->whereHas('user',function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%');
+            })
+
+            ->orWhereHas('type',function($query) use ($search) {
+                $query->where('name','like','%' . $search . '%')
+                        ->orWhere('description','like','%' . $search . '%');
+            })
+
+            ->orWhereHas('server',function($query) use ($search) {
+                $query->where('name','like','%' . $search . '%');
+            })
+
+            ->orWhere(function($query) use ($search) {
+                $query->where('created_at','like','%' . $search . '%');
+            });
+        });
     }
 }
