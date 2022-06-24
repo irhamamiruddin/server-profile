@@ -795,6 +795,6 @@ export default {
         ActivityList,
     },
 
-    props: ["server", "activities"],
+    props: ["server", "activities", "storage"],
 };
 </script>

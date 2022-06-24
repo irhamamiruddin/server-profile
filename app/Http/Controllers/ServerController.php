@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Server;
 use App\Models\ServerActivity;
+use App\Models\ServerStorageDetail;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -50,9 +51,18 @@ class ServerController extends Controller
      */
     public function show($id)
     {
-        $server = Server::with('documentations','applications','server_details','members','projects')->find($id);
-        $activities = ServerActivity::with('user','type')->where('server_id','=',$id)->orderBy('created_at', 'desc')->limit(5)->get();
-        return Inertia::render('Server/Show',compact('server','activities'));
+        $server = Server::with('documentations','applications','server_details','members','projects')
+                        ->find($id);
+
+        $activities = ServerActivity::with('user','type')
+                        ->where('server_id','=',$id)
+                        ->orderBy('created_at', 'desc')
+                        ->limit(5)
+                        ->get();
+
+        $storage = ServerStorageDetail::with('server_detail');
+
+        return Inertia::render('Server/Show',compact('server','activities','storage'));
     }
 
     /**
