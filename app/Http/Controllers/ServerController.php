@@ -17,6 +17,7 @@ class ServerController extends Controller
      */
     public function index()
     {
+        // $queries = ['search','page'];
         $servers = Server::paginate(5);
         $activities = ServerActivity::with('user','type')->orderBy('created_at', 'desc')->limit(5)->get();
         return Inertia::render('Server/Index',compact('servers','activities'));
@@ -60,9 +61,20 @@ class ServerController extends Controller
                         ->limit(5)
                         ->get();
 
-        $storage = ServerStorageDetail::with('server_detail');
+        $storages = ServerStorageDetail::with('server_detail')->where('server_detail_id','=',$id)->get();
 
-        return Inertia::render('Server/Show',compact('server','activities','storage'));
+        $data = self::_group_by($storages->toArray(), 'partition');
+
+
+        return Inertia::render('Server/Show',compact('server','activities','storages'));
+    }
+
+    private function _group_by($array, $key) {
+        $return = [];
+        foreach($array as $val) {
+            $return[$val[$key]][] = $val;
+        }
+        return $return;
     }
 
     /**

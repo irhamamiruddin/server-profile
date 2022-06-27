@@ -34,7 +34,7 @@ class ServerDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function storage_detail(): HasMany
+    public function storage_details()
     {
         return $this->hasMany(ServerStorageDetail::class);
     }

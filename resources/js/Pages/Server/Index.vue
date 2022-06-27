@@ -214,6 +214,6 @@ export default {
         ActivityList,
     },
 
-    props: ["servers", "activities"],
+    props: ["servers", "activities", "filters"],
 };
 </script>

@@ -9,6 +9,7 @@ import JetDropdownLink from "@/Jetstream/DropdownLink.vue";
 import JetNavLink from "@/Jetstream/NavLink.vue";
 import JetResponsiveNavLink from "@/Jetstream/ResponsiveNavLink.vue";
 import JetInput from "@/Jetstream/Input.vue";
+import Search from "@/Components/Search.vue";
 import "tw-elements";
 
 defineProps({
@@ -496,12 +497,7 @@ const logout = () => {
                                 </div>
                             </div>
                             <div>
-                                <!-- Search Bar -->
-                                <JetInput
-                                    type="text"
-                                    class="block w-auto"
-                                    placeholder="Search"
-                                />
+                                <Search :filters="$page.props.filters" />
                             </div>
                         </div>
 

@@ -22,8 +22,8 @@ class ServerStorageDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function server_detail(): BelongsTo
+    public function server_detail()
     {
-        return $this->belongsTo(ServerDetail::class, 'server_detail_id');
+        return $this->belongsTo(ServerDetail::class);
     }
 }

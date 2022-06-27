@@ -52,7 +52,8 @@ class ApplicationController extends Controller
     public function show($id)
     {
         $applications = Application::where('server_id','=',$id)->get();
-        $details = Application::with('application_detail')->where('server_id','=',$id)->groupBy('application_detail_id')->get();
+        // $details = Application::with('application_detail')->where('server_id','=',$id)->groupBy('application_detail_id')->get();
+        $details = [];
 
         return Inertia::render('Application/Show',compact('applications','details'));
     }

@@ -1,5 +1,5 @@
 <template>
-    <AppLayout title="Dashboard">
+    <AppLayout title="Dashboard" :filters="filters">
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-2">
                 <div class="flex flex-col">
@@ -19,12 +19,12 @@
                                                 <div
                                                     class="py-2 inline-block min-w-full sm:px-6 lg:px-8"
                                                 >
-                                                    <JetInput
+                                                    <!-- <JetInput
                                                         type="text"
                                                         class="block ml-2 mb-4 w-60"
                                                         v-model="form.search"
                                                         placeholder="Search"
-                                                    />
+                                                    /> -->
                                                     <div
                                                         class="overflow-x-auto"
                                                     >

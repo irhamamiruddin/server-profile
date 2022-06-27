@@ -21,8 +21,8 @@
                                         >
                                             <!-- Parent 1 -->
                                             <div
-                                                v-for="item in details"
-                                                :key="item"
+                                                v-for="detail in details"
+                                                :key="detail"
                                                 class="accordion-item bg-white border border-gray-200"
                                             >
                                                 <h2
@@ -57,13 +57,19 @@
                                                                 </p>
                                                                 <p
                                                                     v-if="
-                                                                        item
+                                                                        detail
                                                                             .application_detail
                                                                             .v_technology
                                                                     "
                                                                     class="col-span-3"
                                                                 >
                                                                     Yes
+                                                                </p>
+                                                                <p
+                                                                    v-else
+                                                                    class="col-span-3"
+                                                                >
+                                                                    No
                                                                 </p>
                                                             </div>
                                                             <div
@@ -78,7 +84,7 @@
                                                                 >
                                                                     <p>
                                                                         {{
-                                                                            item
+                                                                            detail
                                                                                 .application_detail
                                                                                 .v_technology
                                                                         }}
@@ -95,7 +101,7 @@
                                                                     class="col-span-3 flex flex-wrap gap-1"
                                                                 >
                                                                     {{
-                                                                        item
+                                                                        detail
                                                                             .application_detail
                                                                             .config_file
                                                                     }}

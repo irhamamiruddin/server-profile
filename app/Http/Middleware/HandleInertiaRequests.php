@@ -36,8 +36,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $queries = ['search','page'];
+        $filters = $request -> all($queries);
+
         return array_merge(parent::share($request), [
-            //
+            'filters' => $filters
         ]);
     }
 }

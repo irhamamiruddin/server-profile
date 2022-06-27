@@ -17,7 +17,7 @@ class ActivityController extends Controller
     public function index(Request $request)
     {
         $queries = ['search','page'];
-        $filters = $request -> all($queries);
+        // $filters = $request -> all($queries);
 
         $activities = ServerActivity::with('user','type','server')
                         ->orderBy('created_at', 'desc')
@@ -25,7 +25,7 @@ class ActivityController extends Controller
                         ->paginate(5)
                         ->withQueryString();
 
-        return Inertia::render('Activity/Index',compact('activities','filters'));
+        return Inertia::render('Activity/Index',compact('activities'));
     }
 
     /**
