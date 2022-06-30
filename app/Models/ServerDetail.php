@@ -16,10 +16,10 @@ class ServerDetail extends Model
         'memory',
     ];
 
-    protected function status(): Attribute
+    public function memory(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ucfirst($value)
+            get: fn ($value) => $value."GB",
         );
     }
 

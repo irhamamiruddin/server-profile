@@ -19,12 +19,12 @@
                                                 <div
                                                     class="py-2 inline-block min-w-full sm:px-6 lg:px-8"
                                                 >
-                                                    <!-- <JetInput
+                                                    <JetInput
                                                         type="text"
                                                         class="block ml-2 mb-4 w-60"
                                                         v-model="form.search"
-                                                        placeholder="Search"
-                                                    /> -->
+                                                        placeholder="Search Activity..."
+                                                    />
                                                     <div
                                                         class="overflow-x-auto"
                                                     >

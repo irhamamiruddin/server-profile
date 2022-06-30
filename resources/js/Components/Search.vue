@@ -8,19 +8,16 @@
 </template>
 
 <script>
-import { InertiaLink } from "@inertiajs/inertia-vue3";
 import JetInput from "@/Jetstream/Input.vue";
-import { Inertia } from "@inertiajs/inertia";
+import { InertiaLink } from "@inertiajs/inertia-vue3";
 
 export default {
     components: {
-        InertiaLink,
         JetInput,
+        InertiaLink,
     },
 
-    props: {
-        filters: Array,
-    },
+    props: ["filters"],
 
     data() {
         return {
@@ -34,7 +31,7 @@ export default {
     watch: {
         "form.search": function searchPost(newVal) {
             Inertia.get(
-                route("activities.index", newVal ? { search: newVal } : {}) //show list of bnda di search instead of pegi ke specific page
+                route("activities.index", newVal ? { search: newVal } : {})
             );
         },
     },

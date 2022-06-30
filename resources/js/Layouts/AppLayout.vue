@@ -565,7 +565,10 @@ const logout = () => {
                         >
                             Application
                         </JetResponsiveNavLink>
-                        <JetResponsiveNavLink>
+                        <JetResponsiveNavLink
+                            :href="route('documentations.index')"
+                            :active="route().current('documentations.*')"
+                        >
                             Documentation
                         </JetResponsiveNavLink>
                     </div>
@@ -722,7 +725,12 @@ const logout = () => {
                         >
                             Application
                         </JetNavLink>
-                        <JetNavLink> Documentation </JetNavLink>
+                        <JetNavLink
+                            :href="route('documentations.index')"
+                            :active="route().current('documentations.*')"
+                        >
+                            Documentation
+                        </JetNavLink>
                     </div>
                 </div>
             </header>

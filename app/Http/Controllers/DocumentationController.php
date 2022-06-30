@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Server;
-use App\Models\ServerActivity;
-use App\Models\ServerStorageDetail;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\Documentation;
+use Inertia\Inertia;
 
-class ServerController extends Controller
+class DocumentationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $queries = ['search','page'];
-        $servers = Server::paginate(5);
-        $activities = ServerActivity::with('user','type')->orderBy('created_at', 'desc')->limit(5)->get();
-        return Inertia::render('Server/Index',compact('servers','activities'));
+        $queries = ['search','page'];
+        $documents = Documentation::with('server')
+                        ->filter($request->only($queries))
+                        ->paginate(10);
+        return Inertia::render("Documentation/Index",compact('documents'));
     }
 
     /**
@@ -52,28 +51,8 @@ class ServerController extends Controller
      */
     public function show($id)
     {
-        $server = Server::with('documentations','applications','server_details','members','projects')
-                        ->find($id);
-
-        $activities = ServerActivity::with('user','type')
-                        ->where('server_id','=',$id)
-                        ->orderBy('created_at', 'desc')
-                        ->limit(5)
-                        ->get();
-
-        $storages = ServerStorageDetail::with('server_detail')->where('server_detail_id','=',$id)->get();
-        $storages = self::_group_by($storages->toArray(), 'partition');
-
-        return Inertia::render('Server/Show',compact('server','activities','storages'));
-    }
-
-    // To group by partition
-    private function _group_by($array, $key) {
-        $return = [];
-        foreach($array as $val) {
-            $return[$val[$key]][] = $val;
-        }
-        return $return;
+        $document = Documentation::find($id);
+        return Inertia::render("Documentation/Show",compact('document'));
     }
 
     /**
@@ -109,5 +88,4 @@ class ServerController extends Controller
     {
         //
     }
-
 }

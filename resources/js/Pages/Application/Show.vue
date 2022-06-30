@@ -57,9 +57,7 @@
                                                                 </p>
                                                                 <p
                                                                     v-if="
-                                                                        detail
-                                                                            .application_detail
-                                                                            .v_technology
+                                                                        detail.v_technology
                                                                     "
                                                                     class="col-span-3"
                                                                 >
@@ -84,9 +82,7 @@
                                                                 >
                                                                     <p>
                                                                         {{
-                                                                            detail
-                                                                                .application_detail
-                                                                                .v_technology
+                                                                            detail.v_technology
                                                                         }}
                                                                     </p>
                                                                 </div>
@@ -101,9 +97,7 @@
                                                                     class="col-span-3 flex flex-wrap gap-1"
                                                                 >
                                                                     {{
-                                                                        detail
-                                                                            .application_detail
-                                                                            .config_file
+                                                                        detail.config_file
                                                                     }}
                                                                     <button>
                                                                         <svg
@@ -295,6 +289,6 @@ export default {
         InertiaLink,
     },
 
-    props: ["applications", "details"],
+    props: ["applications", "details", "filters"],
 };
 </script>

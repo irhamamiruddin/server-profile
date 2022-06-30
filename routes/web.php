@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServerController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\DocumentationController;
 use Inertia\Inertia;
 
 /*
@@ -39,4 +40,5 @@ Route::middleware([
     Route::resource('servers', ServerController::class);
     Route::resource('applications', ApplicationController::class);
     Route::resource('activities', ActivityController::class);
+    Route::resource('documentations', DocumentationController::class);
 });

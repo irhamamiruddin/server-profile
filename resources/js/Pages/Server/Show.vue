@@ -337,26 +337,42 @@
                                                                 <div
                                                                     class="col-span-3"
                                                                 >
-                                                                    <p
-                                                                        v-for="storage in storages"
+                                                                    <div
+                                                                        v-for="partitions in storages"
                                                                         :key="
-                                                                            storage
+                                                                            partitions
                                                                         "
-                                                                        class="mx-3"
+                                                                        class="mx-3 flex"
                                                                     >
                                                                         {{
-                                                                            storage.partition
-                                                                        }}:/
-                                                                        {{
-                                                                            storage.allocated_size
-                                                                        }}
-                                                                        {{
-                                                                            storage.unit
-                                                                        }}
-                                                                        ({{
-                                                                            storage.remarks
-                                                                        }})
-                                                                    </p>
+                                                                            partitions[0]
+                                                                                .partition
+                                                                        }}:
+                                                                        <div
+                                                                            v-for="i in partitions"
+                                                                            :key="
+                                                                                i
+                                                                            "
+                                                                            class="flex"
+                                                                        >
+                                                                            /
+                                                                            {{
+                                                                                i.allocated_size
+                                                                            }}
+                                                                            {{
+                                                                                i.unit
+                                                                            }}&nbsp;
+                                                                            <p
+                                                                                v-if="
+                                                                                    i.remarks
+                                                                                "
+                                                                            >
+                                                                                ({{
+                                                                                    i.remarks
+                                                                                }})&nbsp;
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div
@@ -430,11 +446,21 @@
                                                                         <td
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
-                                                                            <JetButton
-                                                                                class="place-content-center"
+                                                                            <inertia-link
+                                                                                :href="
+                                                                                    route(
+                                                                                        'documentations.show',
+                                                                                        documentation.id
+                                                                                    )
+                                                                                "
+                                                                                title="Open Document"
                                                                             >
-                                                                                View
-                                                                            </JetButton>
+                                                                                <JetButton
+                                                                                    class="place-content-center"
+                                                                                >
+                                                                                    View
+                                                                                </JetButton>
+                                                                            </inertia-link>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -691,7 +717,7 @@
                                                                             }}
                                                                         </td>
                                                                         <td
-                                                                            class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
+                                                                            class="sm:text-xs lg:text-sm text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
                                                                             <span
                                                                                 v-if="
@@ -712,13 +738,38 @@
                                                                                     application.status
                                                                                 }}
                                                                             </span>
+                                                                            <span
+                                                                                v-if="
+                                                                                    application.health_status ==
+                                                                                    'Up'
+                                                                                "
+                                                                                class="text-xs inline-block mx-2 py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-green-500"
+                                                                            >
+                                                                                {{
+                                                                                    application.health_status
+                                                                                }}
+                                                                                {{
+                                                                                    application.health_last_checked
+                                                                                }}
+                                                                            </span>
+                                                                            <span
+                                                                                v-else
+                                                                                class="text-xs inline-block mx-2 py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold text-white rounded bg-red-500"
+                                                                            >
+                                                                                {{
+                                                                                    application.health_status
+                                                                                }}
+                                                                                {{
+                                                                                    application.health_last_checked
+                                                                                }}
+                                                                            </span>
                                                                         </td>
                                                                         <td
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
-                                                                            <JetButton
-                                                                                >Details</JetButton
-                                                                            >
+                                                                            <JetButton>
+                                                                                Details
+                                                                            </JetButton>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -859,6 +910,6 @@ export default {
         ActivityList,
     },
 
-    props: ["server", "activities", "storages", "filters"],
+    props: ["server", "activities", "storages"],
 };
 </script>
