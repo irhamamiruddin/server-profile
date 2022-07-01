@@ -105,9 +105,9 @@ class AuthServiceProvider extends ServiceProvider
 
     private function _loginLocal($request)
     {
-        return Auth::guard('local')->attempt([
+        return Auth::guard('web')->attempt([
             'username' => $request->username,
             'password' => $request->password
-        ]) ? Auth::guard('local')->user() : null;
+        ]) ? Auth::guard('web')->user() : null;
     }
 }
