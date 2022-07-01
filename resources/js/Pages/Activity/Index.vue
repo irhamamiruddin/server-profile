@@ -23,7 +23,7 @@
                                                         type="text"
                                                         class="block ml-2 mb-4 w-60"
                                                         v-model="form.search"
-                                                        placeholder="Search Activity..."
+                                                        placeholder="Search Activities..."
                                                     />
                                                     <div
                                                         class="overflow-x-auto"
