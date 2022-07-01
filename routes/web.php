@@ -6,6 +6,7 @@ use App\Http\Controllers\ServerController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DocumentationController;
+use App\Http\Controllers\SearchResultController;
 use Inertia\Inertia;
 
 /*
@@ -41,4 +42,6 @@ Route::middleware([
     Route::resource('applications', ApplicationController::class);
     Route::resource('activities', ActivityController::class);
     Route::resource('documentations', DocumentationController::class);
+
+    Route::get('search',SearchResultController::class)->name('search.result');
 });
