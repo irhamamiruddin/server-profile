@@ -1,5 +1,5 @@
 <template>
-    <JetDropdown align="right" width="72">
+    <JetDropdown align="right" width="72" contentClasses="py-2 bg-gray-100">
         <template #trigger>
             <JetInput
                 type="text"
@@ -10,26 +10,25 @@
         </template>
 
         <template #content>
-            <div class="border-b-2 hover:bg-gray-100 px-2 py-1">
-                <JetDropdownLink :href="route('profile.show')">
-                    Item 1
+            <div class="max-h-64 overflow-auto will-change-scroll bg-white">
+                <JetDropdownLink
+                    v-for="i in 100"
+                    :key="i"
+                    :href="route('profile.show')"
+                    class="border-b-2"
+                >
+                    <div class="text-lg font-semibold">Item {{ i }}</div>
+                    <div class="text-sm mt-2 font-light">
+                        Item {{ i }} description
+                    </div>
                 </JetDropdownLink>
             </div>
-            <!-- <div class="border-b hover:bg-gray-100 px-2 py-1">
-                <JetDropdownLink :href="route('profile.show')">
-                    Item 2
-                </JetDropdownLink>
-            </div>
-            <div class="border-b hover:bg-gray-100 px-2 py-1">
-                <JetDropdownLink :href="route('profile.show')">
-                    Item 3
-                </JetDropdownLink>
-            </div> -->
+
             <inertia-link :href="route('search.result')">
                 <div
-                    class="pt-3 font-light text-sm text-center text-gray-700 hover:text-blue-500"
+                    class="pt-3 font-light text-sm text-center text-gray-600 hover:text-blue-500 border-t"
                 >
-                    More results
+                    Show all results
                 </div>
             </inertia-link>
         </template>

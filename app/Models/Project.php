@@ -23,10 +23,10 @@ class Project extends Model
     }
 
     // Accessor
-    protected function nature(): Attribute
-    {
-        return new Attribute(
-			get: fn ($value) => $value."MP"
-        );
-    }
+    // protected function nature(): Attribute
+    // {
+    //     return new Attribute(
+	// 		get: fn ($value) => $value."MP"
+    //     );
+    // }
 }

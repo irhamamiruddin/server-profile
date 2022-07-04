@@ -446,7 +446,7 @@
                                                                         <td
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
-                                                                            <inertia-link
+                                                                            <InertiaLink
                                                                                 :href="
                                                                                     route(
                                                                                         'documentations.show',
@@ -454,13 +454,14 @@
                                                                                     )
                                                                                 "
                                                                                 title="Open Document"
+                                                                                target="_blank"
                                                                             >
                                                                                 <JetButton
                                                                                     class="place-content-center"
                                                                                 >
                                                                                     View
                                                                                 </JetButton>
-                                                                            </inertia-link>
+                                                                            </InertiaLink>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>

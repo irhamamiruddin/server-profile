@@ -23,7 +23,7 @@
             </template>
 
             <template #content>
-                <div class="block px-4 py-2 text-sm text-center border-b-2">
+                <div class="block px-4 py-2 text-base border-b-2 text-gray-500">
                     Useful Links
                 </div>
 

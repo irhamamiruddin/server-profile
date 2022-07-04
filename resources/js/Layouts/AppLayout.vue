@@ -259,7 +259,7 @@ const logout = () => {
                                         <template #content>
                                             <!-- Account Management -->
                                             <div
-                                                class="block px-4 py-2 text-xs text-gray-400"
+                                                class="block px-4 py-2 text-base text-gray-500"
                                             >
                                                 Manage Account
                                             </div>
@@ -304,7 +304,7 @@ const logout = () => {
                                     </JetDropdown>
                                 </div>
                             </div>
-                            <div>
+                            <div class="hidden sm:flex sm:items-center sm:ml-6">
                                 <Search :filters="$page.props.filters" />
                             </div>
                         </div>
