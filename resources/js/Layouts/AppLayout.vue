@@ -265,6 +265,18 @@ const logout = () => {
                                             </div>
 
                                             <JetDropdownLink
+                                                :href="route('users.index')"
+                                            >
+                                                Manage Users
+                                            </JetDropdownLink>
+
+                                            <JetDropdownLink
+                                                :href="route('roles.index')"
+                                            >
+                                                Manage Roles
+                                            </JetDropdownLink>
+
+                                            <JetDropdownLink
                                                 :href="route('profile.show')"
                                             >
                                                 Profile
@@ -410,6 +422,20 @@ const logout = () => {
                         </div>
 
                         <div class="mt-3 space-y-1">
+                            <JetResponsiveNavLink
+                                :href="route('users.index')"
+                                :active="route().current('users.*')"
+                            >
+                                Manage Users
+                            </JetResponsiveNavLink>
+
+                            <JetResponsiveNavLink
+                                :href="route('roles.index')"
+                                :active="route().current('roles.*')"
+                            >
+                                Manage Roles
+                            </JetResponsiveNavLink>
+
                             <JetResponsiveNavLink
                                 :href="route('profile.show')"
                                 :active="route().current('profile.show')"

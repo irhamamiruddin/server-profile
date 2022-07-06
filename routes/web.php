@@ -7,6 +7,8 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\SearchResultController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleResultController;
 use Inertia\Inertia;
 
 /*
@@ -37,6 +39,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 
     Route::resource('servers', ServerController::class);
     Route::resource('applications', ApplicationController::class);

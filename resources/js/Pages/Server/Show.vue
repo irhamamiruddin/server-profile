@@ -446,7 +446,7 @@
                                                                         <td
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
-                                                                            <InertiaLink
+                                                                            <a
                                                                                 :href="
                                                                                     route(
                                                                                         'documentations.show',
@@ -461,7 +461,7 @@
                                                                                 >
                                                                                     View
                                                                                 </JetButton>
-                                                                            </InertiaLink>
+                                                                            </a>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
