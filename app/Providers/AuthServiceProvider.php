@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Laravel\Fortify\Fortify;
 use LdapRecord\Connection;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -37,7 +38,6 @@ class AuthServiceProvider extends ServiceProvider
             $user = User::where('username', $username)->first();
 
             // if the user exist then check the login type
-            // $login_type = $user->user_login_type;
 
             if($user && ($user->user_login_type == "local")){
                 return $this->_loginLocal($request);
@@ -47,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
                 $ldapData = $this->_attemptLDAPLogin($request);
 
                 if ($ldapData) {
-                    $user = $this->_loginUser($user, $ldapData);
+                    $user = $this->_loginUser($user, $username, $ldapData);
 
                     return $user;
                 }
@@ -89,8 +89,9 @@ class AuthServiceProvider extends ServiceProvider
         return false;
     }
 
-    private function _loginUser($user, $ldapData)
+    private function _loginUser($user, $username, $ldapData)
     {
+        $role = Role::where('name','Staff')->first();
 
         if (!$user) {
             $user = new User();
@@ -104,6 +105,8 @@ class AuthServiceProvider extends ServiceProvider
             $user->name = $ldapData['cn'][0];
             $user->save();
         }
+
+        $user->assignRole([$role->id]);
 
         Auth::login($user);
 
