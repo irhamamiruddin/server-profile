@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Laravel\Fortify\Fortify;
 use LdapRecord\Connection;
+use App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -32,7 +33,13 @@ class AuthServiceProvider extends ServiceProvider
         Fortify::authenticateUsing(function ($request) {
             $username = $request->username;
 
-            if ($username == "admin") {
+            // check if username exist in users table
+            $user = User::where('username', $username)->first();
+
+            // if the user exist then check the login type
+            // $login_type = $user->user_login_type;
+
+            if($user && ($user->user_login_type == "local")){
                 return $this->_loginLocal($request);
             }
 
@@ -40,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
                 $ldapData = $this->_attemptLDAPLogin($request);
 
                 if ($ldapData) {
-                    $user = $this->_loginUser($request->username, $ldapData);
+                    $user = $this->_loginUser($user, $ldapData);
 
                     return $user;
                 }
@@ -82,15 +89,15 @@ class AuthServiceProvider extends ServiceProvider
         return false;
     }
 
-    private function _loginUser($username, $ldapData)
+    private function _loginUser($user, $ldapData)
     {
-        $user = User::where('username', $username)->first();
 
         if (!$user) {
             $user = new User();
             $user->name = $ldapData['cn'][0];
             $user->email = "";
             $user->username = $username;
+            $user->user_login_type = "ldap";
             $user->password = '';
             $user->save();
         } else {
