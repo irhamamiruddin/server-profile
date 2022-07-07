@@ -153,19 +153,6 @@ const clearPhotoFileInput = () => {
                 <JetInputError :message="form.errors.name" class="mt-2" />
             </div>
 
-            <!-- UserName -->
-            <div class="col-span-6 sm:col-span-4">
-                <JetLabel for="username" value="Username" />
-                <JetInput
-                    id="username"
-                    v-model="form.username"
-                    type="text"
-                    class="mt-1 block w-full"
-                    autocomplete="username"
-                />
-                <JetInputError :message="form.errors.username" class="mt-2" />
-            </div>
-
             <!-- Email -->
             <div class="col-span-6 sm:col-span-4">
                 <JetLabel for="email" value="Email" />
