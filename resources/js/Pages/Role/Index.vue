@@ -1,69 +1,151 @@
 <template>
     <AppLayout title="Dashboard">
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Role List
-                <inertia-link :href="route('roles.create')">
-                    <JetButton class="float-right bg-green-500 hover:bg-green-600 active:bg-green-700">Create Role</JetButton>
-                </inertia-link>
-            </h2>
-        </template>
+        <div class="py-2">
+            <div class="max-w-7xl mx-auto sm:px-2 lg:px-2">
+                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                        <div class="overflow-hidden">
+                            <!-- Error Msg -->
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="flex flex-col">
-                    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-                            <div class="overflow-hidden">
-                                <!-- Error Msg -->
-                                <table class="min-w-full border text-center bg-white">
-                                    <thead class="border-b bg-slate-400">
-                                        <tr>
-                                            <th scope="col" class="text-sm font-bold text-white px-6 py-4 border-r">
-                                                No
-                                            </th>
-                                            <th scope="col" class="text-sm font-bold text-white px-6 py-4 border-r">
-                                                Name
-                                            </th>
-                                            <th scope="col" class="text-sm font-bold text-white px-6 py-4 border-r">
-                                                Action
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-if="!roles.data.length">
-                                            <td class="p-4 text-center text-gray-900" colspan="5">
-                                                No data
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b" v-for="(role,i) in roles.data" :key="role">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">
-                                                {{ i+1 }}
-                                            </td>
-                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                                                {{ role.name }}
-                                            </td>
-                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                            <div class="m-5">
+                                <div
+                                    class="rounded-md bg-white border border-gray-200 p-5"
+                                >
+                                    <div
+                                        class="overflow-x-auto sm:-mx-6 lg:-mx-8"
+                                    >
+                                        <div
+                                            class="py-2 inline-block min-w-full sm:px-6 lg:px-8"
+                                        >
+                                            <div class="overflow-x-auto">
                                                 <inertia-link
-                                                    :href="route('roles.show',role.id)"
-                                                    class="font-bold text-sky-500 mx-1">
-                                                    Show
+                                                    :href="
+                                                        route('roles.create')
+                                                    "
+                                                >
+                                                    <JetButton
+                                                        class="float-right"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-4 w-4"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                                            />
+                                                        </svg>
+                                                        &nbsp;Add Role
+                                                    </JetButton>
                                                 </inertia-link>
-                                                <inertia-link
-                                                    :href="route('roles.edit',role.id)"
-                                                    class="font-bold text-amber-500 mx-1">
-                                                    Edit
-                                                </inertia-link>
-                                                <inertia-link
-                                                    @click="deleteRole(role.id)"
-                                                    class="font-bold text-red-500 mx-1">
-                                                    Delete
-                                                </inertia-link>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <JetPagination class="m-5" :links="roles.links" />
+
+                                                <table
+                                                    class="min-w-full text-center"
+                                                >
+                                                    <thead class="border-b">
+                                                        <tr>
+                                                            <th
+                                                                scope="col"
+                                                                class="text-sm font-bold text-gray-900 px-6 py-4"
+                                                            >
+                                                                No
+                                                            </th>
+                                                            <th
+                                                                scope="col"
+                                                                class="text-sm font-bold text-gray-900 px-6 py-4"
+                                                            >
+                                                                Role
+                                                            </th>
+                                                            <th
+                                                                scope="col"
+                                                                class="text-sm font-bold text-gray-900 px-6 py-4"
+                                                            >
+                                                                Action
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr
+                                                            v-for="(
+                                                                role, i
+                                                            ) in roles.data"
+                                                            :key="role"
+                                                            class="border-b"
+                                                        >
+                                                            <td
+                                                                class="px-6 py-4 whitespace-nowrap text-sm font-light text-gray-900"
+                                                            >
+                                                                {{ i + 1 }}
+                                                            </td>
+                                                            <td
+                                                                class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                                            >
+                                                                {{ role.name }}
+                                                            </td>
+                                                            <td
+                                                                class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
+                                                            >
+                                                                <inertia-link
+                                                                    :href="
+                                                                        route(
+                                                                            'roles.show',
+                                                                            role.id
+                                                                        )
+                                                                    "
+                                                                    title="View"
+                                                                >
+                                                                    <button
+                                                                        class="inline-block px-2.5 py-2 m-1 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
+                                                                    >
+                                                                        View
+                                                                    </button>
+                                                                </inertia-link>
+                                                                <inertia-link
+                                                                    :href="
+                                                                        route(
+                                                                            'roles.edit',
+                                                                            role.id
+                                                                        )
+                                                                    "
+                                                                    title="Edit"
+                                                                >
+                                                                    <button
+                                                                        class="inline-block px-2.5 py-2 m-1 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                    >
+                                                                        Edit
+                                                                    </button>
+                                                                </inertia-link>
+                                                                <inertia-link
+                                                                    @click="
+                                                                        deleteRole(
+                                                                            role.id
+                                                                        )
+                                                                    "
+                                                                    title="Delete"
+                                                                >
+                                                                    <button
+                                                                        class="inline-block px-2.5 py-2 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                    >
+                                                                        Delete
+                                                                    </button>
+                                                                </inertia-link>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <JetPagination
+                                                    class="m-5"
+                                                    :links="roles.links"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,35 +156,31 @@
 </template>
 
 <script>
-    import { InertiaLink } from '@inertiajs/inertia-vue3';
-    import { Inertia } from '@inertiajs/inertia'
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    import JetButton from '@/Jetstream/Button.vue';
-    import JetPagination from '@/Components/Pagination.vue'
+import { InertiaLink } from "@inertiajs/inertia-vue3";
+import { Inertia } from "@inertiajs/inertia";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import JetButton from "@/Jetstream/Button.vue";
+import JetPagination from "@/Components/Pagination.vue";
 
-    export default{
-        components:
-        {
-            AppLayout,
-            JetButton,
-            InertiaLink,
-            JetPagination,
+export default {
+    components: {
+        AppLayout,
+        JetButton,
+        InertiaLink,
+        JetPagination,
+    },
+
+    props: ["roles"],
+
+    methods: {
+        deleteRole(postId) {
+            const result = confirm("Confirm delete role?");
+            if (result) {
+                Inertia.delete(route("roles.destroy", postId), {
+                    preserveScroll: true,
+                });
+            }
         },
-
-        props:['roles','i'],
-
-        methods:
-        {
-            deleteRole(postId)
-            {
-                const result = confirm("Confirm delete role?");
-                if (result) {
-                    Inertia.delete(route("roles.destroy", postId), {
-                        preserveScroll: true,
-                    });
-                }
-            },
-        },
-
-    };
+    },
+};
 </script>

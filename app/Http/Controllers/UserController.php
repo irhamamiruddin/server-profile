@@ -13,6 +13,15 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:user-list|user-show|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:user-show', ['only' => ['show']]);
+         $this->middleware('permission:user-create', ['only' => ['create','store']]);
+         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,11 +29,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $user = User::with('roles')->orderBy('id','DESC')->paginate(5);
-        return Inertia::render('User/Index',[
-            'users' => $user,
-            'i' => ($request->input('page', 1) - 1) * 5,
-        ]);
+        $users = User::with('roles')->paginate(5);
+        return Inertia::render('User/Index',compact('users'));
     }
 
     /**
@@ -48,6 +54,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'username' => 'required|unique:users',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm_password',
             'roles' => 'required'

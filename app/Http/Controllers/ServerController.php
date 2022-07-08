@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class ServerController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:server-list|server-show|server-create|server-edit|server-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:server-show', ['only' => ['show']]);
+         $this->middleware('permission:server-create', ['only' => ['create','store']]);
+         $this->middleware('permission:server-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:server-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +39,7 @@ class ServerController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Server/Create');
     }
 
     /**

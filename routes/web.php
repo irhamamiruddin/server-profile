@@ -8,7 +8,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\SearchResultController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleResultController;
+use App\Http\Controllers\RoleController;
 use Inertia\Inertia;
 
 /*
@@ -25,14 +25,14 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+        // 'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
 
 Route::middleware([
-    'auth:sanctum',
+    'auth',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {

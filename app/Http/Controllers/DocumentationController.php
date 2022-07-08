@@ -8,6 +8,15 @@ use Inertia\Inertia;
 
 class DocumentationController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:documentation-list|documentation-show|documentation-create|documentation-edit|documentation-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:documentation-show', ['only' => ['show']]);
+         $this->middleware('permission:documentation-create', ['only' => ['create','store']]);
+         $this->middleware('permission:documentation-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:documentation-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +38,7 @@ class DocumentationController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Documentation/Create');
     }
 
     /**

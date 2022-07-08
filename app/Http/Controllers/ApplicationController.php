@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class ApplicationController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:application-list|application-show|application-create|application-edit|application-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:application-show', ['only' => ['show']]);
+         $this->middleware('permission:application-create', ['only' => ['create','store']]);
+         $this->middleware('permission:application-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:application-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +38,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Application/Create');
     }
 
     /**

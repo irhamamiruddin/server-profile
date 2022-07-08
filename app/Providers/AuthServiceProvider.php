@@ -47,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
                 $ldapData = $this->_attemptLDAPLogin($request);
 
                 if ($ldapData) {
-                    $user = $this->_loginUser($user, $username, $ldapData);
+                    $user = $this->_loginUser($user, $ldapData);
 
                     return $user;
                 }
@@ -89,20 +89,21 @@ class AuthServiceProvider extends ServiceProvider
         return false;
     }
 
-    private function _loginUser($user, $username, $ldapData)
+    private function _loginUser($user, $ldapData)
     {
         $role = Role::where('name','Staff')->first();
 
         if (!$user) {
             $user = new User();
             $user->name = $ldapData['cn'][0];
-            $user->email = "";
-            $user->username = $username;
+            $user->email = $ldapData['mail'][0];
+            $user->username = $ldapData['uid'][0];
             $user->user_login_type = "ldap";
             $user->password = '';
             $user->save();
         } else {
             $user->name = $ldapData['cn'][0];
+            $user->email = $ldapData['mail'][0];
             $user->save();
         }
 
