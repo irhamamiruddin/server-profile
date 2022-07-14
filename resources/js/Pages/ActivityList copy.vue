@@ -1,38 +1,32 @@
 <template>
-    <div
-        class="rounded-md bg-white border border-gray-200 flex flex-col px-6 py-4"
-    >
+    <div class="p-5 rounded-md bg-white border border-gray-200">
         <p class="text-lg">Activity</p>
         <div class="my-5">
             <div
                 v-for="activity in activities"
                 :key="activity"
-                class="flex flex-nowrap my-3"
+                class="grid grid-flow-col-dense m-2 p-0"
             >
-                <div>
+                <span class="w-14 p-1 place-content-center">
                     <img
                         class="h-10 w-10 rounded-full object-cover"
                         :src="activity.user.profile_photo_url"
                         :alt="activity.user.name"
                         :title="activity.user.name"
                     />
-                </div>
-                <div class="lg:w-60 px-3 grid content-center">
-                    <div class="italic text-gray-500 text-xs">
+                </span>
+                <div class="w-48">
+                    <p class="italic text-gray-500 text-xs mb-1">
                         {{ activity.created_at }}
-                    </div>
-                    <div class="text-sm">
+                    </p>
+                    <p class="text-sm">
                         {{ activity.type.description }}
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="text-sm text-center text-blue-600 hover:text-gray-600">
-            <inertia-link
-                v-if="hasAnyPermission(['activity-list'])"
-                :href="route('activities.index')"
-                title="Activity"
-            >
+            <inertia-link :href="route('activities.index')" title="Activity">
                 Show More...
             </inertia-link>
         </div>

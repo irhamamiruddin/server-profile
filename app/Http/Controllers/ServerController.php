@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Server;
+use App\Models\ServerDetail;
 use App\Models\ServerActivity;
 use App\Models\ServerStorageDetail;
 use Inertia\Inertia;
@@ -24,11 +25,12 @@ class ServerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $queries = ['search','page'];
-        $servers = Server::paginate(5);
+        $queries = ['search','page'];
+        $servers = Server::filter($request->only($queries))->paginate(5);
         $activities = ServerActivity::with('user','type')->orderBy('created_at', 'desc')->limit(5)->get();
+
         return Inertia::render('Server/Index',compact('servers','activities'));
     }
 
@@ -50,7 +52,28 @@ class ServerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'name' => 'required|unique:servers,name',
+        //     'domain' => 'required|unique:servers,domain',
+        //     'environment' => 'required',
+        //     'ip_address' => 'required|unique:servers,ip_address',
+        //     'port' => 'required',
+        //     'dns' => 'required',
+        //     'status' => 'required',
+        //     'operating_system' => 'required',
+        //     'vcpu_amount' => 'required',
+        //     'memory' => 'required'
+        // ]);
+
+        $server = $request->only('name','domain','environment','ip_address','port','dns','status');
+        $specification = $request->only('operating_system','vcpu_amount','memory');
+
+        Server::create($server);
+        // ServerDetail::create($specification);
+
+        /* loop this thing store for each storage in storages ServerStorageDetail::create($storage); */
+
+        return redirect()->route('servers.index')->with('success','Create successful.');
     }
 
     /**
@@ -116,7 +139,8 @@ class ServerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Server::where('id',$id)->delete();
+        return back()->with('success','Deleted successfully!');
     }
 
 }

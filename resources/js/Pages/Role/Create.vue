@@ -20,82 +20,106 @@
                                                     :href="route('roles.index')"
                                                 >
                                                     <JetButton
-                                                        class="my-4 float-right bg-green-500 hover:bg-green-600 active:bg-green-700"
+                                                        class="float-right"
                                                     >
-                                                        Back
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-4 w-4"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M11 17l-5-5m0 0l5-5m-5 5h12"
+                                                            />
+                                                        </svg>
+                                                        &nbsp;Back
                                                     </JetButton>
                                                 </inertia-link>
-                                                <form>
-                                                    <!-- Name -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4"
-                                                    >
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="name"
-                                                            value="Name"
-                                                        />
-                                                        <JetInput
-                                                            id="name"
-                                                            v-model="form.name"
-                                                            type="text"
-                                                            class="mt-1 block w-full"
-                                                            autocomplete="name"
-                                                        />
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors.name
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
 
-                                                    <!-- Permissions -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4"
-                                                    >
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="permission"
-                                                            value="Permissions"
-                                                        />
+                                                <div class="clear-right">
+                                                    <form>
+                                                        <!-- Name -->
                                                         <div
-                                                            v-for="permission in permissions"
-                                                            :key="permission"
+                                                            class="col-span-6 sm:col-span-4 mb-4"
                                                         >
-                                                            <JetCheckbox
-                                                                v-model:checked="
-                                                                    form.permissions
+                                                            <JetLabel
+                                                                class="font-bold"
+                                                                for="name"
+                                                                value="Name"
+                                                            />
+                                                            <JetInput
+                                                                id="name"
+                                                                v-model="
+                                                                    form.name
                                                                 "
-                                                                :value="
-                                                                    permission.name
+                                                                type="text"
+                                                                class="mt-1 block w-full"
+                                                                autocomplete="name"
+                                                            />
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .name
                                                                 "
-                                                                id="permission"
-                                                            >
-                                                            </JetCheckbox>
-                                                            {{
-                                                                permission.name
-                                                            }}
+                                                                class="mt-2"
+                                                            />
                                                         </div>
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors
-                                                                    .permission
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
 
-                                                    <JetButton
-                                                        :type="'button'"
-                                                        class="float-right bg-blue-500 hover:bg-blue-600 active:bg-blue-700"
-                                                        @click="save(form)"
-                                                    >
-                                                        Save
-                                                    </JetButton>
-                                                </form>
+                                                        <!-- Permissions -->
+                                                        <div
+                                                            class="col-span-6 sm:col-span-4 mb-4"
+                                                        >
+                                                            <JetLabel
+                                                                class="font-bold"
+                                                                for="permission"
+                                                                value="Permissions"
+                                                            />
+
+                                                            <div
+                                                                v-for="permission in permissions"
+                                                                :key="
+                                                                    permission
+                                                                "
+                                                            >
+                                                                <JetCheckbox
+                                                                    v-model:checked="
+                                                                        form.permissions
+                                                                    "
+                                                                    :value="
+                                                                        permission.name
+                                                                    "
+                                                                    id="permission"
+                                                                >
+                                                                </JetCheckbox>
+                                                                {{
+                                                                    permission.name
+                                                                }}
+                                                            </div>
+
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .permission
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
+
+                                                        <JetButton
+                                                            :type="'button'"
+                                                            class="float-right bg-blue-500 hover:bg-blue-600 active:bg-blue-700"
+                                                            @click="save(form)"
+                                                        >
+                                                            Save
+                                                        </JetButton>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -142,6 +166,8 @@ export default {
                 name: null,
                 permissions: [],
             },
+
+            options: this.permissions,
         };
     },
 

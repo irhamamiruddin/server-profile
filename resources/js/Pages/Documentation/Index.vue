@@ -2,156 +2,123 @@
     <AppLayout title="Dashboard">
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-2">
-                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="overflow-x-auto sm:mx-6 lg:mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <div class="m-5">
                                 <div
                                     class="rounded-md bg-white border border-gray-200 p-5"
                                 >
-                                    <div
-                                        class="overflow-x-auto sm:-mx-6 lg:-mx-8"
-                                    >
+                                    <div class="overflow-x-auto">
                                         <div
-                                            class="py-2 inline-block min-w-full sm:px-6 lg:px-8"
+                                            class="text-2xl font-bold px-5 py-2"
                                         >
-                                            <div class="overflow-x-auto">
-                                                <InertiaLink
-                                                    :href="
-                                                        route(
-                                                            'documentations.create'
-                                                        )
-                                                    "
+                                            Documentations
+                                        </div>
+                                        <div class="my-3 px-3 py-2">
+                                            <JetInput
+                                                type="text"
+                                                class="block ml-2 mb-4 w-60"
+                                                v-model="form.search"
+                                                placeholder="Search Documents..."
+                                            />
+                                        </div>
+                                        <div class="px-5">
+                                            <div v-if="!documents.data.length">
+                                                <div
+                                                    class="p-4 text-center text-gray-900"
                                                 >
-                                                    <JetButton
-                                                        class="float-right"
-                                                    >
+                                                    No Documentation
+                                                </div>
+                                            </div>
+                                            <div
+                                                v-for="(
+                                                    document, i
+                                                ) in documents.data"
+                                                :key="document"
+                                                class="flex flex-nowrap border border-gray-300 rounded-md my-3 px-5"
+                                            >
+                                                <div
+                                                    class="text-center grid content-center"
+                                                >
+                                                    {{ i + 1 }}
+                                                </div>
+                                                <div
+                                                    class="grow flex flex-nowrap col-span-3 px-6 py-4 text-gray-900"
+                                                >
+                                                    <div>
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-4 w-4"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor"
-                                                            stroke-width="2"
+                                                            class="h-10 w-10 fill-gray-800"
+                                                            viewBox="0 0 20 20"
+                                                            fill="currentColor"
                                                         >
                                                             <path
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                                                fill-rule="evenodd"
+                                                                d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                                                                clip-rule="evenodd"
                                                             />
                                                         </svg>
-                                                        &nbsp;Add Document
-                                                    </JetButton>
-                                                </InertiaLink>
-                                                <div
-                                                    class="text-2xl font-bold px-5 py-2"
-                                                >
-                                                    Documentations
-                                                </div>
-                                                <div class="my-3 px-3 py-2">
-                                                    <JetInput
-                                                        type="text"
-                                                        class="block ml-2 mb-4 w-60"
-                                                        v-model="form.search"
-                                                        placeholder="Search Documents..."
-                                                    />
-                                                </div>
-                                                <div class="px-5 py-2">
+                                                    </div>
                                                     <div
-                                                        v-for="(
-                                                            document, i
-                                                        ) in documents.data"
-                                                        :key="document"
-                                                        class="flex flex-nowrap border border-gray-300 rounded-md my-3 px-5 py-2"
+                                                        class="px-3 grid content-center"
                                                     >
                                                         <div
-                                                            class="text-center grid content-center"
+                                                            class="font-semibold text-sm"
                                                         >
-                                                            {{ i + 1 }}
+                                                            {{ document.name }}
                                                         </div>
                                                         <div
-                                                            class="grow flex flex-nowrap col-span-3 px-6 py-4 text-gray-900"
-                                                        >
-                                                            <div>
-                                                                <svg
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-10 w-10 fill-gray-800"
-                                                                    viewBox="0 0 20 20"
-                                                                    fill="currentColor"
-                                                                >
-                                                                    <path
-                                                                        fill-rule="evenodd"
-                                                                        d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
-                                                                        clip-rule="evenodd"
-                                                                    />
-                                                                </svg>
-                                                            </div>
-                                                            <div
-                                                                class="px-3 grid content-center"
-                                                            >
-                                                                <div
-                                                                    class="font-semibold text-sm"
-                                                                >
-                                                                    {{
-                                                                        document.name
-                                                                    }}
-                                                                </div>
-                                                                <div
-                                                                    class="font-light text-xs"
-                                                                >
-                                                                    {{
-                                                                        document.created_at
-                                                                    }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div
-                                                            class="basis-1/3 px-6 py-2 grid content-center"
+                                                            class="font-light text-xs"
                                                         >
                                                             {{
-                                                                document.server
-                                                                    .name
+                                                                document.created_at
                                                             }}
-                                                        </div>
-
-                                                        <div
-                                                            class="grid content-center gap-2"
-                                                        >
-                                                            <a
-                                                                :href="
-                                                                    route(
-                                                                        'documentations.show',
-                                                                        document.id
-                                                                    )
-                                                                "
-                                                                title="Open Document"
-                                                                target="_blank"
-                                                            >
-                                                                <JetButton
-                                                                    class="place-content-center"
-                                                                    type="
-                                                                            button
-                                                                        "
-                                                                >
-                                                                    View
-                                                                </JetButton>
-                                                            </a>
-                                                            <JetButton
-                                                                class="place-content-center"
-                                                            >
-                                                                Delete
-                                                            </JetButton>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <JetPagination
-                                                    class="m-5"
-                                                    :links="documents.links"
-                                                />
+                                                <div
+                                                    class="basis-1/3 px-6 py-2 grid content-center"
+                                                >
+                                                    {{ document.server.name }}
+                                                </div>
+
+                                                <div
+                                                    class="grid content-center"
+                                                >
+                                                    <a
+                                                        :href="
+                                                            route(
+                                                                'documentations.show',
+                                                                document.id
+                                                            )
+                                                        "
+                                                        title="Open Document"
+                                                        target="_blank"
+                                                    >
+                                                        <JetButton
+                                                            v-if="
+                                                                hasAnyPermission(
+                                                                    [
+                                                                        'documentation-show',
+                                                                    ]
+                                                                )
+                                                            "
+                                                            class="place-content-center"
+                                                            type="'button'"
+                                                        >
+                                                            View
+                                                        </JetButton>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <JetPagination
+                                            class="m-5"
+                                            :links="documents.links"
+                                        />
                                     </div>
                                 </div>
                             </div>

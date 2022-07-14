@@ -24,9 +24,13 @@ class ApplicationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $applications = Application::with('server')->paginate(5);
+        $queries = ['search','page'];
+
+        $applications = Application::with('server')
+                            ->filter($request->only($queries))
+                            ->paginate(5);
 
         return Inertia::render('Application/Index',compact('applications'));
     }
@@ -49,7 +53,14 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+        ]);
+
+        $input = $request->all();
+
+        return redirect()->route('applications.index')
+            ->with('success','Application created successfully!');
     }
 
     /**
@@ -61,11 +72,7 @@ class ApplicationController extends Controller
     public function show($id)
     {
         $applications = Application::with('application_detail')->where('server_id','=',$id)->get();
-
-        // $details = Application::with('application_detail')
-        //                     ->where('server_id','=',$id)
-        //                     ->select('v_technology','config_file')
-        //                     ->get();
+        // $applications = Application::with('application_detail')->find($id);
 
         $details = ApplicationDetail::join('applications','applications.application_detail_id','=','application_details.id')
                         ->select('server_id','v_technology','config_file')
@@ -84,7 +91,9 @@ class ApplicationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $application = Application::find($id);
+
+        return Inertia::render('User/Edit',compact('application'));
     }
 
     /**
@@ -96,7 +105,14 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+
+        ]);
+
+        $application = Application::find($id);
+
+        return redirect()->route('roles.index')
+            ->with('success','Role updated successfully');
     }
 
     /**
@@ -107,6 +123,8 @@ class ApplicationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $application = Application::find($id)->delete();
+        return back()
+            ->with('success','Delete successful!');
     }
 }

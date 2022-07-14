@@ -40,91 +40,102 @@
                                                     </JetButton>
                                                 </inertia-link>
 
-                                                <form>
-                                                    <!-- Name -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4"
-                                                    >
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="name"
-                                                            value="Name"
-                                                        />
-                                                        <JetInput
-                                                            id="name"
-                                                            v-model="form.name"
-                                                            type="text"
-                                                            class="mt-1 block w-full"
-                                                            autocomplete="name"
-                                                        />
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors.name
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
+                                                <div class="clear-right">
+                                                    <form>
+                                                        <!-- Name -->
+                                                        <div
+                                                            class="col-span-6 sm:col-span-4 mb-4"
+                                                        >
+                                                            <JetLabel
+                                                                class="font-bold"
+                                                                for="name"
+                                                                value="Name"
+                                                            />
+                                                            <JetInput
+                                                                id="name"
+                                                                v-model="
+                                                                    form.name
+                                                                "
+                                                                type="text"
+                                                                class="mt-1 block w-full"
+                                                                autocomplete="name"
+                                                            />
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .name
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
 
-                                                    <!-- Email -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4"
-                                                    >
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="email"
-                                                            value="Email"
-                                                        />
-                                                        <JetInput
-                                                            id="email"
-                                                            v-model="form.email"
-                                                            type="email"
-                                                            class="mt-1 block w-full"
-                                                            autocomplete="email"
-                                                        />
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors
-                                                                    .email
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
+                                                        <!-- Email -->
+                                                        <div
+                                                            class="col-span-6 sm:col-span-4 mb-4"
+                                                        >
+                                                            <JetLabel
+                                                                class="font-bold"
+                                                                for="email"
+                                                                value="Email"
+                                                            />
+                                                            <JetInput
+                                                                id="email"
+                                                                v-model="
+                                                                    form.email
+                                                                "
+                                                                type="email"
+                                                                class="mt-1 block w-full"
+                                                                autocomplete="email"
+                                                            />
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .email
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
 
-                                                    <div>
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="roles"
-                                                            value="Roles"
-                                                        />
-                                                        <Multiselect
-                                                            v-model="form.roles"
-                                                            mode="tags"
-                                                            :multiple="true"
-                                                            :close-on-select="
-                                                                false
-                                                            "
-                                                            :options="roles"
-                                                        />
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors
-                                                                    .roles
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
+                                                        <div>
+                                                            <JetLabel
+                                                                class="font-bold"
+                                                                for="roles"
+                                                                value="Roles"
+                                                            />
+                                                            <Multiselect
+                                                                v-model="
+                                                                    form.roles
+                                                                "
+                                                                mode="tags"
+                                                                :multiple="true"
+                                                                :close-on-select="
+                                                                    false
+                                                                "
+                                                                :options="roles"
+                                                            />
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .roles
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
 
-                                                    <JetButton
-                                                        :type="'button'"
-                                                        class="float-right bg-blue-500 hover:bg-blue-600 active:bg-blue-700 mt-3"
-                                                        @click="editUser(form)"
-                                                    >
-                                                        Save
-                                                    </JetButton>
-                                                </form>
+                                                        <JetButton
+                                                            :type="'button'"
+                                                            class="float-right bg-blue-500 hover:bg-blue-600 active:bg-blue-700 mt-3"
+                                                            @click="
+                                                                editUser(form)
+                                                            "
+                                                        >
+                                                            Save
+                                                        </JetButton>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

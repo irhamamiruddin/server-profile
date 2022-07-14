@@ -51,4 +51,19 @@ class Application extends Model
             get: fn ($value) => now()->parse($value)->diffForHumans(),
         );
     }
+
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->whereHas('server',function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+
+            ->orWhere(function($query) use ($search) {
+                $query->where('name','like','%' . $search . '%')
+                    ->orWhere('status','like','%' . $search . '%');
+            });
+        });
+    }
 }

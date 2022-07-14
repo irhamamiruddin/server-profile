@@ -29,7 +29,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::with('roles')->paginate(5);
+        $queries = ['search','page'];
+
+        $users = User::with('roles')
+                        ->filter($request->only($queries))
+                        ->paginate(5);
         return Inertia::render('User/Index',compact('users'));
     }
 

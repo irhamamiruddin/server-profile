@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -39,8 +40,17 @@ class HandleInertiaRequests extends Middleware
         $queries = ['search','page'];
         $filters = $request -> all($queries);
 
+        if (Auth::check())
+            $permissions = Auth::user()->getAllPermissions();
+        else
+            $permissions = null;
+
         return array_merge(parent::share($request), [
-            'filters' => $filters
+            'filters' => $filters,
+            'permissions' => $permissions,
+            'auth'=>['user' => $request->user() ?   $request->user()->only('id', 'name', 'email') : null,
+                    'can' =>$request->user() ? $request->user()->getPermissionArray() : []
+                ],
         ]);
     }
 }

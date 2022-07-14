@@ -11,11 +11,8 @@ class ActivityController extends Controller
 {
     function __construct()
     {
-         $this->middleware('permission:activity-list|activity-show|activity-create|activity-edit|activity-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:activity-show', ['only' => ['show']]);
-         $this->middleware('permission:activity-create', ['only' => ['create','store']]);
-         $this->middleware('permission:activity-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:activity-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:activity-list', ['only' => ['index']]);
+
     }
 
     /**

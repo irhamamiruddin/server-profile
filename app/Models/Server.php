@@ -63,4 +63,16 @@ class Server extends Model
             get: fn ($value) => ucfirst($value),
         );
     }
+
+    // Scope
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('domain','like','%' . $search . '%')
+                        ->orWhere('status','like','%' . $search . '%');
+            });
+        });
+    }
 }

@@ -2,7 +2,7 @@
     <AppLayout title="Dashboard">
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-2">
-                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="overflow-x-auto sm:mx-6 lg:mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
                             <div class="m-5">
@@ -16,12 +16,23 @@
                                             class="py-2 inline-block min-w-full sm:px-6 lg:px-8"
                                         >
                                             <div class="overflow-x-auto">
+                                                <div
+                                                    class="inline-flex text-2xl font-bold py-2"
+                                                >
+                                                    Users
+                                                </div>
+
                                                 <inertia-link
                                                     :href="
                                                         route('users.create')
                                                     "
                                                 >
                                                     <JetButton
+                                                        v-if="
+                                                            hasAnyPermission([
+                                                                'user-create',
+                                                            ])
+                                                        "
                                                         class="float-right"
                                                     >
                                                         <svg
@@ -41,6 +52,16 @@
                                                         &nbsp;Add User
                                                     </JetButton>
                                                 </inertia-link>
+
+                                                <div class="py-2">
+                                                    <JetInput
+                                                        type="text"
+                                                        class="block ml-2 mb-4 w-60"
+                                                        v-model="form.search"
+                                                        placeholder="Search"
+                                                    />
+                                                </div>
+
                                                 <table class="min-w-full">
                                                     <thead class="border-b">
                                                         <tr>
@@ -71,6 +92,19 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        <tr
+                                                            v-if="
+                                                                !users.data
+                                                                    .length
+                                                            "
+                                                        >
+                                                            <td
+                                                                class="p-4 text-center text-gray-900"
+                                                                colspan="4"
+                                                            >
+                                                                No data
+                                                            </td>
+                                                        </tr>
                                                         <tr
                                                             v-for="(
                                                                 user, i
@@ -145,6 +179,13 @@
                                                                     title="View"
                                                                 >
                                                                     <button
+                                                                        v-if="
+                                                                            hasAnyPermission(
+                                                                                [
+                                                                                    'user-show',
+                                                                                ]
+                                                                            )
+                                                                        "
                                                                         class="inline-block px-2.5 py-2 m-1 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
                                                                     >
                                                                         View
@@ -160,6 +201,13 @@
                                                                     title="Edit"
                                                                 >
                                                                     <button
+                                                                        v-if="
+                                                                            hasAnyPermission(
+                                                                                [
+                                                                                    'user-edit',
+                                                                                ]
+                                                                            )
+                                                                        "
                                                                         class="inline-block px-2.5 py-2 m-1 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                                                                     >
                                                                         Edit
@@ -174,6 +222,13 @@
                                                                     title="Delete"
                                                                 >
                                                                     <button
+                                                                        v-if="
+                                                                            hasAnyPermission(
+                                                                                [
+                                                                                    'user-delete',
+                                                                                ]
+                                                                            )
+                                                                        "
                                                                         class="inline-block px-2.5 py-2 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                                                                     >
                                                                         Delete
@@ -206,6 +261,7 @@ import { Inertia } from "@inertiajs/inertia";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import JetButton from "@/Jetstream/Button.vue";
 import JetPagination from "@/Components/Pagination.vue";
+import JetInput from "@/Jetstream/Input.vue";
 
 export default {
     components: {
@@ -213,10 +269,25 @@ export default {
         JetButton,
         InertiaLink,
         JetPagination,
+        JetInput,
     },
 
-    props: ["users"],
+    props: ["users", "filters"],
 
+    data() {
+        return {
+            form: {
+                search: this.filters.search,
+                page: this.filters.page,
+            },
+        };
+    },
+
+    watch: {
+        "form.search": function searchPost(newVal) {
+            Inertia.get(route("users.index", newVal ? { search: newVal } : {}));
+        },
+    },
     methods: {
         deleteUser(data) {
             const result = confirm("Confirm delete user?");

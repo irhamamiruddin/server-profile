@@ -39,7 +39,8 @@
                                                         &nbsp;Back
                                                     </JetButton>
                                                 </inertia-link>
-                                                <div>
+
+                                                <div class="clear-right">
                                                     <form>
                                                         <!-- Name -->
                                                         <div
@@ -91,7 +92,7 @@
                                                                 :message="
                                                                     $page.props
                                                                         .errors
-                                                                        .email
+                                                                        .username
                                                                 "
                                                                 class="mt-2"
                                                             />
