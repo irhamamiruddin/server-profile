@@ -5,7 +5,13 @@
         <p class="text-lg">Activity</p>
         <div class="my-5">
             <div
-                v-for="activity in activities"
+                v-if="!activities.data.length"
+                class="p-4 text-center text-gray-900"
+            >
+                No Activity
+            </div>
+            <div
+                v-for="activity in activities.data"
                 :key="activity"
                 class="flex flex-nowrap my-3"
             >

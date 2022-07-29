@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string("domain");
             $table->string("environment");
             $table->string("ip_address");
-            $table->string("port");
-            $table->string("dns");
+            $table->integer("port");
             $table->enum("status",['active','inactive']);
             $table->timestamps();
         });

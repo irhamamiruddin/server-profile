@@ -148,13 +148,11 @@
                                                     <td
                                                         class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"
                                                     >
-                                                        <inertia-link
+                                                        <InertiaLink
                                                             :href="
                                                                 route(
                                                                     'applications.show',
-                                                                    application
-                                                                        .server
-                                                                        .id
+                                                                    application.id
                                                                 )
                                                             "
                                                             title="View"
@@ -171,8 +169,15 @@
                                                             >
                                                                 View
                                                             </button>
-                                                        </inertia-link>
-                                                        <inertia-link>
+                                                        </InertiaLink>
+                                                        <InertiaLink
+                                                            :href="
+                                                                route(
+                                                                    'applications.edit',
+                                                                    application.id
+                                                                )
+                                                            "
+                                                        >
                                                             <button
                                                                 v-if="
                                                                     hasAnyPermission(
@@ -185,10 +190,10 @@
                                                             >
                                                                 Edit
                                                             </button>
-                                                        </inertia-link>
+                                                        </InertiaLink>
                                                         <button
                                                             @click="
-                                                                deletePost(
+                                                                deleteApp(
                                                                     application.id
                                                                 )
                                                             "
@@ -255,6 +260,17 @@ export default {
             Inertia.get(
                 route("applications.index", newVal ? { search: newVal } : {})
             );
+        },
+    },
+
+    methods: {
+        deleteApp(id) {
+            const result = confirm("Confirm delete?");
+            if (result) {
+                Inertia.delete(route("applications.destroy", id), {
+                    preserveScroll: true,
+                });
+            }
         },
     },
 };

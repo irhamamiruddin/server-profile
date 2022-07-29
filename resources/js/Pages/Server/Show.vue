@@ -59,160 +59,141 @@
                                                                     <div
                                                                         class="overflow-hidden"
                                                                     >
-                                                                        <table
-                                                                            class="min-w-full"
+                                                                        <JetButton
+                                                                            class="float-right"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#staticBackdrop"
                                                                         >
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td
-                                                                                        class="p-1 whitespace-nowrap sm:text-sm lg:text-base font-bold text-gray-900"
-                                                                                    >
-                                                                                        Environment
-                                                                                    </td>
-                                                                                    <td
-                                                                                        class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
-                                                                                    >
-                                                                                        {{
-                                                                                            server.environment
-                                                                                        }}
-                                                                                    </td>
-                                                                                    <td
-                                                                                        class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap flex gap-1"
-                                                                                    >
-                                                                                        Credentials
-                                                                                        <button
-                                                                                            data-bs-toggle="modal"
-                                                                                            data-bs-target="#staticBackdrop"
-                                                                                        >
-                                                                                            <svg
-                                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                                class="h-6 w-6"
-                                                                                                fill="none"
-                                                                                                viewBox="0 0 24 24"
-                                                                                                stroke="currentColor"
-                                                                                                stroke-width="2"
-                                                                                            >
-                                                                                                <path
-                                                                                                    stroke-linecap="round"
-                                                                                                    stroke-linejoin="round"
-                                                                                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                                                                                                />
-                                                                                            </svg>
-                                                                                        </button>
+                                                                            Get
+                                                                            Credentials&nbsp;
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                class="h-5 w-5"
+                                                                                fill="none"
+                                                                                viewBox="0 0 24 24"
+                                                                                stroke="currentColor"
+                                                                                stroke-width="2"
+                                                                            >
+                                                                                <path
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                                                                                />
+                                                                            </svg>
+                                                                        </JetButton>
 
-                                                                                        <!-- Modal -->
-                                                                                        <div
-                                                                                            class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
-                                                                                            id="staticBackdrop"
-                                                                                            data-bs-backdrop="static"
-                                                                                            data-bs-keyboard="false"
-                                                                                            tabindex="-1"
-                                                                                            aria-labelledby="staticBackdropLabel"
-                                                                                            aria-hidden="true"
+                                                                        <!-- Modal -->
+                                                                        <div
+                                                                            class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
+                                                                            id="staticBackdrop"
+                                                                            data-bs-backdrop="static"
+                                                                            data-bs-keyboard="false"
+                                                                            tabindex="-1"
+                                                                            aria-labelledby="staticBackdropLabel"
+                                                                            aria-hidden="true"
+                                                                        >
+                                                                            <div
+                                                                                class="modal-dialog relative w-auto pointer-events-none"
+                                                                            >
+                                                                                <div
+                                                                                    class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
+                                                                                >
+                                                                                    <div
+                                                                                        class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md"
+                                                                                    >
+                                                                                        <h5
+                                                                                            class="text-xl font-medium leading-normal text-gray-800"
+                                                                                            id="exampleModalLabel"
                                                                                         >
-                                                                                            <div
-                                                                                                class="modal-dialog relative w-auto pointer-events-none"
-                                                                                            >
-                                                                                                <div
-                                                                                                    class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current"
-                                                                                                >
-                                                                                                    <div
-                                                                                                        class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md"
-                                                                                                    >
-                                                                                                        <h5
-                                                                                                            class="text-xl font-medium leading-normal text-gray-800"
-                                                                                                            id="exampleModalLabel"
-                                                                                                        >
-                                                                                                            Credentials
-                                                                                                        </h5>
-                                                                                                        <button
-                                                                                                            type="button"
-                                                                                                            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
-                                                                                                            data-bs-dismiss="modal"
-                                                                                                            aria-label="Close"
-                                                                                                        ></button>
-                                                                                                    </div>
-                                                                                                    <div
-                                                                                                        class="modal-body relative p-4"
-                                                                                                    >
-                                                                                                        The
-                                                                                                        credentials
-                                                                                                        has
-                                                                                                        been
-                                                                                                        sent
-                                                                                                        to
-                                                                                                        your
-                                                                                                        email.
-                                                                                                    </div>
-                                                                                                    <div
-                                                                                                        class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md"
-                                                                                                    >
-                                                                                                        <button
-                                                                                                            type="button"
-                                                                                                            class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                                                                            data-bs-dismiss="modal"
-                                                                                                        >
-                                                                                                            Close
-                                                                                                        </button>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr
-                                                                                    class="bg-white"
+                                                                                            Credentials
+                                                                                        </h5>
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close"
+                                                                                        ></button>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="modal-body relative p-4"
+                                                                                    >
+                                                                                        The
+                                                                                        credentials
+                                                                                        has
+                                                                                        been
+                                                                                        sent
+                                                                                        to
+                                                                                        your
+                                                                                        email.
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md"
+                                                                                    >
+                                                                                        <button
+                                                                                            type="button"
+                                                                                            class="inline-block px-6 py-2.5 bg-purple-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-purple-700 hover:shadow-lg focus:bg-purple-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-purple-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                                            data-bs-dismiss="modal"
+                                                                                        >
+                                                                                            Close
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div
+                                                                            class="clear-right"
+                                                                        >
+                                                                            <div
+                                                                                class="m-1 p-1 grid grid-cols-4"
+                                                                            >
+                                                                                <p
+                                                                                    class="truncate font-bold"
                                                                                 >
-                                                                                    <td
-                                                                                        class="p-1 whitespace-nowrap sm:text-sm lg:text-base font-bold text-gray-900"
-                                                                                    >
-                                                                                        IP
-                                                                                        Address
-                                                                                    </td>
-                                                                                    <td
-                                                                                        class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
-                                                                                    >
-                                                                                        {{
-                                                                                            server.ip_address
-                                                                                        }}
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr
-                                                                                    class="bg-white"
+                                                                                    Environment
+                                                                                </p>
+                                                                                <p
+                                                                                    class="col-span-3 mx-3"
                                                                                 >
-                                                                                    <td
-                                                                                        class="p-1 whitespace-nowrap sm:text-sm lg:text-base font-bold text-gray-900"
-                                                                                    >
-                                                                                        Port
-                                                                                    </td>
-                                                                                    <td
-                                                                                        colspan="2"
-                                                                                        class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
-                                                                                    >
-                                                                                        {{
-                                                                                            server.port
-                                                                                        }}
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr
-                                                                                    class="bg-white"
+                                                                                    {{
+                                                                                        server.environment
+                                                                                    }}
+                                                                                </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="m-1 p-1 grid grid-cols-4"
+                                                                            >
+                                                                                <p
+                                                                                    class="truncate font-bold"
                                                                                 >
-                                                                                    <td
-                                                                                        class="p-1 whitespace-nowrap sm:text-sm lg:text-base font-bold text-gray-900"
-                                                                                    >
-                                                                                        DNS
-                                                                                    </td>
-                                                                                    <td
-                                                                                        colspan="2"
-                                                                                        class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
-                                                                                    >
-                                                                                        {{
-                                                                                            server.dns
-                                                                                        }}
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
+                                                                                    IP
+                                                                                    Address
+                                                                                </p>
+                                                                                <p
+                                                                                    class="col-span-3 mx-3"
+                                                                                >
+                                                                                    {{
+                                                                                        server.ip_address
+                                                                                    }}
+                                                                                </p>
+                                                                            </div>
+                                                                            <div
+                                                                                class="m-1 p-1 grid grid-cols-4"
+                                                                            >
+                                                                                <p
+                                                                                    class="truncate font-bold"
+                                                                                >
+                                                                                    Port
+                                                                                </p>
+                                                                                <p
+                                                                                    class="col-span-3 mx-3"
+                                                                                >
+                                                                                    {{
+                                                                                        server.port
+                                                                                    }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -253,7 +234,7 @@
                                                                 class="m-1 p-1 grid grid-cols-4"
                                                             >
                                                                 <p
-                                                                    class="font-bold"
+                                                                    class="truncate font-bold"
                                                                 >
                                                                     OS
                                                                 </p>
@@ -271,7 +252,7 @@
                                                                 class="m-1 p-1 grid grid-cols-4"
                                                             >
                                                                 <p
-                                                                    class="font-bold"
+                                                                    class="truncate font-bold"
                                                                 >
                                                                     vCPUs
                                                                 </p>
@@ -289,7 +270,7 @@
                                                                 class="m-1 p-1 grid grid-cols-4"
                                                             >
                                                                 <p
-                                                                    class="font-bold"
+                                                                    class="truncate font-bold"
                                                                 >
                                                                     Storage
                                                                 </p>
@@ -338,9 +319,9 @@
                                                                 class="m-1 p-1 grid grid-cols-4"
                                                             >
                                                                 <p
-                                                                    class="font-bold"
+                                                                    class="truncate font-bold"
                                                                 >
-                                                                    Memory
+                                                                    Memory (RAM)
                                                                 </p>
                                                                 <p
                                                                     class="col-span-3 mx-3"
@@ -350,6 +331,7 @@
                                                                             .server_details
                                                                             .memory
                                                                     }}
+                                                                    GB
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -389,6 +371,20 @@
                                                                 class="min-w-full"
                                                             >
                                                                 <tbody>
+                                                                    <tr
+                                                                        v-if="
+                                                                            !server
+                                                                                .documentations
+                                                                                .length
+                                                                        "
+                                                                    >
+                                                                        <td
+                                                                            class="p-4 text-center text-gray-900"
+                                                                        >
+                                                                            No
+                                                                            Data
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr
                                                                         v-for="documentation in server.documentations"
                                                                         :key="
@@ -462,7 +458,13 @@
                                                                 class="min-w-full"
                                                             >
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr
+                                                                        v-if="
+                                                                            server
+                                                                                .members
+                                                                                .length
+                                                                        "
+                                                                    >
                                                                         <th
                                                                             scope="col"
                                                                             class="sm:text-sm lg:text-base font-bold text-gray-900 p-1 text-left"
@@ -484,6 +486,20 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    <tr
+                                                                        v-if="
+                                                                            !server
+                                                                                .members
+                                                                                .length
+                                                                        "
+                                                                    >
+                                                                        <td
+                                                                            class="p-4 text-center text-gray-900"
+                                                                        >
+                                                                            No
+                                                                            Data
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr
                                                                         v-for="(
                                                                             member,
@@ -566,46 +582,18 @@
                                                     <div
                                                         class="accordion-body py-4 px-5"
                                                     >
-                                                        <div
-                                                            class="flex justify-end"
-                                                        >
-                                                            <inertia-link
-                                                                :href="
-                                                                    route(
-                                                                        'applications.show',
-                                                                        server.id
-                                                                    )
-                                                                "
-                                                                title="Applications"
-                                                            >
-                                                                <button
-                                                                    class="p-2"
-                                                                    type="button"
-                                                                    title="Open"
-                                                                >
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        class="h-6 w-6 text-gray-500"
-                                                                        fill="none"
-                                                                        viewBox="0 0 24 24"
-                                                                        stroke="currentColor"
-                                                                        stroke-width="2"
-                                                                    >
-                                                                        <path
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"
-                                                                            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                                                                        />
-                                                                    </svg>
-                                                                </button>
-                                                            </inertia-link>
-                                                        </div>
                                                         <div class="m-1">
                                                             <table
                                                                 class="min-w-full"
                                                             >
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr
+                                                                        v-if="
+                                                                            server
+                                                                                .applications
+                                                                                .length
+                                                                        "
+                                                                    >
                                                                         <th
                                                                             scope="col"
                                                                             class="sm:text-sm lg:text-base font-bold text-gray-900 p-1 text-left"
@@ -628,6 +616,20 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    <tr
+                                                                        v-if="
+                                                                            !server
+                                                                                .applications
+                                                                                .length
+                                                                        "
+                                                                    >
+                                                                        <td
+                                                                            class="p-4 text-center text-gray-900"
+                                                                        >
+                                                                            No
+                                                                            Data
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr
                                                                         v-for="(
                                                                             application,
@@ -747,7 +749,13 @@
                                                                 class="min-w-full"
                                                             >
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr
+                                                                        v-if="
+                                                                            server
+                                                                                .projects
+                                                                                .length
+                                                                        "
+                                                                    >
                                                                         <th
                                                                             scope="col"
                                                                             class="sm:text-sm lg:text-base font-bold text-gray-900 p-1 text-left"
@@ -762,21 +770,35 @@
                                                                             scope="col"
                                                                             class="sm:text-sm lg:text-base font-bold text-gray-900 p-1 text-left"
                                                                         >
-                                                                            Nature
-                                                                        </th>
-                                                                        <th
-                                                                            scope="col"
-                                                                            class="sm:text-sm lg:text-base font-bold text-gray-900 p-1 text-left"
-                                                                        >
                                                                             Project
                                                                             Name
                                                                             /
                                                                             SLA
                                                                             Name
                                                                         </th>
+                                                                        <th
+                                                                            scope="col"
+                                                                            class="sm:text-sm lg:text-base font-bold text-gray-900 p-1 text-left"
+                                                                        >
+                                                                            Nature
+                                                                        </th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
+                                                                    <tr
+                                                                        v-if="
+                                                                            !server
+                                                                                .projects
+                                                                                .length
+                                                                        "
+                                                                    >
+                                                                        <td
+                                                                            class="p-4 text-center text-gray-900"
+                                                                        >
+                                                                            No
+                                                                            Data
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr
                                                                         v-for="project in server.projects"
                                                                         :key="
@@ -794,14 +816,14 @@
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
                                                                             {{
-                                                                                project.nature
+                                                                                project.name
                                                                             }}
                                                                         </td>
                                                                         <td
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"
                                                                         >
                                                                             {{
-                                                                                project.name
+                                                                                project.nature
                                                                             }}
                                                                         </td>
                                                                     </tr>

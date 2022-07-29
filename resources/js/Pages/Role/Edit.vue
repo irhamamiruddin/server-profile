@@ -71,41 +71,47 @@
 
                                                         <!-- Permissions -->
                                                         <div
-                                                            class="col-span-6 sm:col-span-4 mb-4"
+                                                            class="col-span-6 sm:col-span-4"
                                                         >
                                                             <JetLabel
                                                                 class="font-bold"
                                                                 for="permissions"
                                                                 value="Permissions"
                                                             />
-                                                            <div
-                                                                v-for="permission in permissions"
-                                                                :key="
-                                                                    permission
-                                                                "
-                                                            >
-                                                                <JetCheckbox
-                                                                    v-model:checked="
-                                                                        form.permissions
-                                                                    "
-                                                                    :value="
-                                                                        permission.name
-                                                                    "
-                                                                    id="permissions"
-                                                                >
-                                                                </JetCheckbox>
-                                                                {{
-                                                                    permission.name
-                                                                }}
-                                                            </div>
+
                                                             <JetInputError
                                                                 :message="
                                                                     $page.props
                                                                         .errors
-                                                                        .permission
+                                                                        .permissions
                                                                 "
-                                                                class="mt-2"
+                                                                class="my-2"
                                                             />
+
+                                                            <div
+                                                                class="grid lg:grid-cols-4 gap-2 my-2"
+                                                            >
+                                                                <div
+                                                                    v-for="permission in permissions"
+                                                                    :key="
+                                                                        permission
+                                                                    "
+                                                                >
+                                                                    <JetCheckbox
+                                                                        v-model:checked="
+                                                                            form.permissions
+                                                                        "
+                                                                        :value="
+                                                                            permission.name
+                                                                        "
+                                                                        id="permissions"
+                                                                    >
+                                                                    </JetCheckbox>
+                                                                    {{
+                                                                        permission.name
+                                                                    }}
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         <JetButton

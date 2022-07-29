@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->singleton(
+            \Spatie\Permissions\Models\Role::class,
+            \App\Models\Role::class
+        );
     }
 }

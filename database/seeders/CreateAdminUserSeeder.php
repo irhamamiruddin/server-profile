@@ -25,7 +25,7 @@ class CreateAdminUserSeeder extends Seeder
                 'email' => 'admin@gmail.com',
                 'username' => 'admin',
                 'user_login_type' => 'local',
-                'password' => bcrypt('adminSains')
+                'password' => bcrypt('admin1999')
             ]);
         }
 

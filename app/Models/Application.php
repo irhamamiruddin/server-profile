@@ -5,24 +5,37 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+    protected $table = 'applications';
+	protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
+        'description',
         'version',
         'ports',
         'health_status',
         'health_last_checked',
         'status',
+        'server_id',
+        'application_detail_id',
     ];
 
     // Relationship Declarations
     public function application_detail()
     {
+        if ($this->server) {
+            return $this->server->application_detail;
+        }
+
         return $this->belongsTo(ApplicationDetail::class);
+        // return $this->belongsTo(ApplicationDetail::class,Server::class, 'id','server_id');
     }
 
     public function server()

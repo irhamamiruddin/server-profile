@@ -5,10 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Server extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -16,7 +19,6 @@ class Server extends Model
         'environment',
         'ip_address',
         'port',
-        'dns',
         'status',
     ];
 
@@ -31,6 +33,11 @@ class Server extends Model
         return $this->hasMany(Documentation::class);
     }
 
+    /**
+     * Get all of the applications for the Server
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function applications()
     {
         return $this->hasMany(Application::class);
@@ -53,7 +60,17 @@ class Server extends Model
      */
     public function activities()
     {
-        return $this->hasMany(ServerActivity::class);
+        return $this->hasManyThrough(ActivityType::class, ServerActivity::class);
+    }
+
+    /**
+     * Get the application_detail associated with the Server
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function application_detail()
+    {
+        return $this->hasOne(ApplicationDetail::class);
     }
 
     // Accessors

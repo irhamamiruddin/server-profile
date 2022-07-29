@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('member_server', function (Blueprint $table) {
             $table->integer("server_id");
             $table->integer("member_id");
-            $table->timestamps();
         });
     }
 

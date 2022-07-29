@@ -12,7 +12,7 @@ class Documentation extends Model
 
     protected $fillable = [
         'name',
-        'path'
+        'url'
     ];
 
     public function server()

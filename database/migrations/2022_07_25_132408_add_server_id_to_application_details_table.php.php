@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applications', function (Blueprint $table) {
-            $table->id();
-            $table->integer("server_id");
-            $table->string("name");
-            $table->string("domain");
-            $table->string("v-technology");
-            $table->string("config_file_url");
-            $table->timestamps();
+        Schema::table('application_details', function (Blueprint $table) {
+            $table->integer('server_id')->after('id');
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applications');
+        Schema::table('application_details', function (Blueprint $table) {
+            $table->dropColumn('server_id');
+        });
     }
 };

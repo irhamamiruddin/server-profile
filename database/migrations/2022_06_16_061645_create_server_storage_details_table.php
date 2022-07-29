@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('partition');
             $table->integer('allocated_size');
             $table->enum('unit',['KB', 'MB', 'GB', 'TB']);
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->enum('status',['active','inactive']);
             $table->timestamps();
         });

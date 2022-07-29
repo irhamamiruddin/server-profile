@@ -26,4 +26,11 @@ class ServerStorageDetail extends Model
     {
         return $this->belongsTo(ServerDetail::class);
     }
+
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ucfirst($value),
+        );
+    }
 }

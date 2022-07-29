@@ -29,6 +29,7 @@
     "dependencies": {
         "@pdftron/pdfjs-express-viewer": "^8.4.0",
         "@vueform/multiselect": "^2.4.2",
-        "tw-elements": "^1.0.0-alpha12"
+        "tw-elements": "^1.0.0-alpha12",
+        "vue-select": "^4.0.0-beta.3"
     }
 }

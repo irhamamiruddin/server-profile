@@ -16,12 +16,12 @@ class ServerDetail extends Model
         'memory',
     ];
 
-    public function memory(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => $value."GB",
-        );
-    }
+    // public function memory(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => $value."GB",
+    //     );
+    // }
 
     public function server()
     {

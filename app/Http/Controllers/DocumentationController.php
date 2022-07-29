@@ -22,9 +22,14 @@ class DocumentationController extends Controller
     public function index(Request $request)
     {
         $queries = ['search','page'];
-        $documents = Documentation::with('server')
-                        ->filter($request->only($queries))
-                        ->paginate(10);
+        // $documents = Documentation::with('server')
+        //                 ->filter($request->only($queries))
+        //                 ->paginate(10);
+
+        $documents = Documentation::with(['server' => function ($query) {
+                            $query->withTrashed();
+                        }])->filter($request->only($queries))->paginate(10);
+
         return Inertia::render("Documentation/Index",compact('documents'));
     }
 
