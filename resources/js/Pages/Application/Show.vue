@@ -39,70 +39,84 @@
                                             <div
                                                 class="accordion-body py-4 px-5"
                                             >
-                                                <div class="m-2 p-2">
+                                                <div
+                                                    class="clear-right overflow-x-auto"
+                                                >
                                                     <div
-                                                        class="m-2 grid grid-cols-4"
+                                                        class="m-1 p-1 grid grid-cols-4"
                                                     >
-                                                        <p>Virtualization</p>
+                                                        <p
+                                                            class="truncate font-bold"
+                                                        >
+                                                            Virtualization
+                                                        </p>
                                                         <p
                                                             v-if="
                                                                 detail.v_technology
                                                             "
-                                                            class="col-span-3"
+                                                            class="col-span-3 mx-3"
                                                         >
                                                             Yes
                                                         </p>
                                                         <p
                                                             v-else
-                                                            class="col-span-3"
+                                                            class="col-span-3 mx-3"
                                                         >
                                                             No
                                                         </p>
                                                     </div>
                                                     <div
-                                                        class="m-2 grid grid-cols-4"
+                                                        class="m-1 p-1 grid grid-cols-4"
                                                     >
-                                                        <p>
+                                                        <p
+                                                            class="truncate font-bold"
+                                                        >
                                                             Virtualization
                                                             Technology
                                                         </p>
-                                                        <div class="col-span-3">
-                                                            <p>
-                                                                {{
-                                                                    detail.v_technology
-                                                                }}
-                                                            </p>
-                                                        </div>
+                                                        <p
+                                                            class="col-span-3 mx-3"
+                                                        >
+                                                            {{
+                                                                detail.v_technology
+                                                            }}
+                                                        </p>
                                                     </div>
                                                     <div
-                                                        class="m-2 grid grid-cols-4"
+                                                        class="m-1 p-1 grid grid-cols-4"
                                                     >
-                                                        <p>Config File</p>
                                                         <p
-                                                            class="col-span-3 flex flex-wrap gap-1"
+                                                            class="truncate font-bold"
+                                                        >
+                                                            Config File
+                                                        </p>
+                                                        <a
+                                                            href="#"
+                                                            target="_blank"
+                                                            class="truncate flex col-span-3 mx-3 text-blue-600 hover:text-gray-700 transition duration-300 ease-in-out mb-4"
                                                         >
                                                             {{
                                                                 detail.config_file
                                                             }}
-                                                            <button>
-                                                                <svg
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6"
-                                                                    fill="none"
-                                                                    viewBox="0 0 24 24"
-                                                                    stroke="currentColor"
-                                                                    stroke-width="2"
-                                                                >
-                                                                    <path
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                        </p>
+                                                            &nbsp;
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                class="h-6 w-6"
+                                                                fill="none"
+                                                                viewBox="0 0 24 24"
+                                                                stroke="currentColor"
+                                                                stroke-width="2"
+                                                            >
+                                                                <path
+                                                                    stroke-linecap="round"
+                                                                    stroke-linejoin="round"
+                                                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                                                />
+                                                            </svg>
+                                                        </a>
                                                     </div>
                                                 </div>
+
                                                 <div>
                                                     <div
                                                         class="accordion-item bg-white border border-gray-200"
@@ -141,6 +155,11 @@
                                                                 application.id
                                                             "
                                                             class="accordion-collapse collapse"
+                                                            :class="{
+                                                                show:
+                                                                    id ==
+                                                                    application.id,
+                                                            }"
                                                             :aria-labelledby="
                                                                 'child' +
                                                                 application.id
@@ -149,30 +168,6 @@
                                                             <div
                                                                 class="accordion-body py-4 px-5"
                                                             >
-                                                                <div
-                                                                    class="flex justify-end"
-                                                                >
-                                                                    <button
-                                                                        class="p-2"
-                                                                        type="button"
-                                                                        title="Open"
-                                                                    >
-                                                                        <svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            class="h-6 w-6 text-gray-500"
-                                                                            fill="none"
-                                                                            viewBox="0 0 24 24"
-                                                                            stroke="currentColor"
-                                                                            stroke-width="2"
-                                                                        >
-                                                                            <path
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round"
-                                                                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                                                                            />
-                                                                        </svg>
-                                                                    </button>
-                                                                </div>
                                                                 <div
                                                                     class="m-2 grid grid-cols-4"
                                                                 >
@@ -267,6 +262,6 @@ export default {
         InertiaLink,
     },
 
-    props: ["applications", "details", "filters"],
+    props: ["id", "applications", "details", "filters"],
 };
 </script>

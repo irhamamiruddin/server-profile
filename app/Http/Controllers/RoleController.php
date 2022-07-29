@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class RoleController extends Controller
@@ -27,7 +27,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::paginate(5);
+        $roles = Role::withTrashed()->paginate(5);
         return Inertia::render('Role/Index',compact('roles'));
     }
 
@@ -59,7 +59,7 @@ class RoleController extends Controller
         $role->syncPermissions($request->input('permissions'));
 
         return redirect()->route('roles.index')
-            ->with('success','Role created successfully');
+            ->with('message','Role created successfully');
     }
 
     /**
@@ -70,7 +70,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
+        $role = Role::withTrashed()->find($id);
         $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
             ->where("role_has_permissions.role_id",$id)
             ->get();
@@ -86,7 +86,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $role = Role::withTrashed()->find($id);
         $permissions = Permission::get();
 
         $rolePermissions = DB::table('permissions')
@@ -112,14 +112,14 @@ class RoleController extends Controller
             'permissions' => 'required',
         ]);
 
-        $role = Role::find($id);
+        $role = Role::withTrashed()->find($id);
         $role->name = $request->input('name');
         $role->save();
 
         $role->syncPermissions($request->input('permissions'));
 
         return redirect()->route('roles.index')
-            ->with('success','Role updated successfully');
+            ->with('message','Role updated successfully');
     }
 
     /**
@@ -130,8 +130,14 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("roles")->where('id',$id)->delete();
+        Role::find($id)->delete();
         return back()
-            ->with('success','Role deleted successfully');
+            ->with('message','Role deleted successfully');
     }
+
+    public function restore($id)
+	{
+		Role::withTrashed()->find($id)->restore();
+		return back()->with('message','Data restored!');
+	}
 }

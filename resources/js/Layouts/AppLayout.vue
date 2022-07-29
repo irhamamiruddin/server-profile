@@ -15,6 +15,7 @@ import "tw-elements";
 
 defineProps({
     title: String,
+    // errors: Object,
 });
 
 const showingNavigationDropdown = ref(false);
@@ -581,3 +582,5 @@ const logout = () => {
         </div>
     </div>
 </template>
+
+<style src="@vueform/multiselect/themes/default.css"></style>

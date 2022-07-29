@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('workers', function (Blueprint $table) {
             $table->id();
-            $table->integer("server_id");
-            $table->string("name");
-            $table->string("domain");
-            $table->string("v-technology");
-            $table->string("config_file_url");
+            $table->integer('application_id');
+            $table->string('name');
+            $table->integer('version');
+            $table->json('ports');
+            $table->enum('health_status',['up','down']);
+            $table->datetime('health_last_checked');
+            $table->enum('status',['active','inactive']);
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('workers');
     }
 };

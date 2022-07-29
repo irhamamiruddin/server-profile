@@ -19,7 +19,7 @@ class UserController extends Controller
          $this->middleware('permission:user-show', ['only' => ['show']]);
          $this->middleware('permission:user-create', ['only' => ['create','store']]);
          $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:user-delete', ['only' => ['destroy','restore']]);
     }
 
     /**
@@ -31,7 +31,8 @@ class UserController extends Controller
     {
         $queries = ['search','page'];
 
-        $users = User::with('roles')
+        $users = User::withTrashed()
+                        ->with('roles')
                         ->filter($request->only($queries))
                         ->paginate(5);
         return Inertia::render('User/Index',compact('users'));
@@ -71,7 +72,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-            ->with('success','User created successfully!');
+            ->with('message','User created successfully!');
     }
 
     /**
@@ -82,7 +83,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::with('roles')->find($id);
+        $user = User::withTrashed()->with('roles')->find($id);
         return Inertia::render('User/Show',compact('user'));
     }
 
@@ -130,7 +131,7 @@ class UserController extends Controller
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-            ->with('success','User updated successfully!');
+            ->with('message','User updated successfully!');
     }
 
     /**
@@ -139,10 +140,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        $user->delete();
-        return back()
-            ->with('success','User deleted successfully!');
+        User::find($id)->delete();
+        return back()->with('message','Deleted successfully!');
     }
+
+    public function restore($id)
+	{
+		User::withTrashed()->find($id)->restore();
+		return back()->with('message','Data restored!');
+	}
 }

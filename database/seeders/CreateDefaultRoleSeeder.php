@@ -27,7 +27,7 @@ class CreateDefaultRoleSeeder extends Seeder
             'activity-show',
         ];
 
-        $role = Role::create(['name' => 'Staff']);
+        $role = Role::firstOrCreate(['name' => 'Staff']);
 
         $query_permissions = Permission::whereIn('name',$permissions)->get();
 

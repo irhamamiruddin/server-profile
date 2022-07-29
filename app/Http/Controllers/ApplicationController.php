@@ -7,6 +7,8 @@ use App\Models\ApplicationDetail;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Server;
+use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
@@ -28,9 +30,9 @@ class ApplicationController extends Controller
     {
         $queries = ['search','page'];
 
-        $applications = Application::with('server')
-                            ->filter($request->only($queries))
-                            ->paginate(5);
+        $applications = Application::with(['server' => function ($query) {
+            $query->withTrashed();
+        }])->filter($request->only($queries))->paginate(5);
 
         return Inertia::render('Application/Index',compact('applications'));
     }
@@ -42,7 +44,8 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Application/Create');
+        $servers = Server::pluck('name','name')->all();
+        return Inertia::render('Application/Create',compact('servers'));
     }
 
     /**
@@ -54,10 +57,19 @@ class ApplicationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
+            'name' => 'required',
+            'description'=> 'required',
+            'version' => 'required|numeric',
+            'ports' => 'required|numeric',
+            'status'=> 'required',
+            'health_status' => 'required',
+            'server' => 'required',
         ]);
 
-        $input = $request->all();
+        $server = Server::where('name','=',$request->input('server'))->first();
+        $input = $request->only('name','description','version','ports','status','health_status');
+        $input['health_last_checked'] = Carbon::now();
+        $server->applications()->create($input);
 
         return redirect()->route('applications.index')
             ->with('success','Application created successfully!');
@@ -71,16 +83,19 @@ class ApplicationController extends Controller
      */
     public function show($id)
     {
-        $applications = Application::with('application_detail')->where('server_id','=',$id)->get();
+        $application = Application::findOrFail($id);
+
+        $applications = Application::with('application_detail')->where('applications.server_id','=',$application->server_id)->get();
         // $applications = Application::with('application_detail')->find($id);
 
-        $details = ApplicationDetail::join('applications','applications.application_detail_id','=','application_details.id')
-                        ->select('server_id','v_technology','config_file')
-                        ->groupBy('server_id','v_technology','config_file')
-                        ->having('server_id','=',$id)
+        $details =
+        ApplicationDetail::join('applications','applications.server_id','=','application_details.server_id')
+                        ->select('applications.server_id','v_technology','config_file')
+                        ->groupBy('applications.server_id','v_technology','config_file')
+                        ->having('applications.server_id','=',$application->server_id)
                         ->get();
 
-        return Inertia::render('Application/Show',compact('applications','details'));
+        return Inertia::render('Application/Show',compact('id','applications','details'));
     }
 
     /**
@@ -91,9 +106,11 @@ class ApplicationController extends Controller
      */
     public function edit($id)
     {
-        $application = Application::find($id);
+        $application = Application::find($id)->first();
+        $servers = Server::pluck('name','name')->all();
+        $server = Server::where('id','=',$application->server_id)->first();
 
-        return Inertia::render('User/Edit',compact('application'));
+        return Inertia::render('Application/Edit',compact('application','servers','server'));
     }
 
     /**
@@ -105,14 +122,21 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
+        // $request->validate([
 
-        ]);
+        // ]);
 
         $application = Application::find($id);
 
-        return redirect()->route('roles.index')
-            ->with('success','Role updated successfully');
+        $server = Server::where('name','=',$request->input('server'))->first();
+        $input = $request->only('name','description','version','ports','status','health_status');
+        // $server->applications()->save($input);
+
+        // $application->update($input);
+        $application->server()->save($input);
+
+        return redirect()->route('applications.index')
+            ->with('success','Application updated successfully');
     }
 
     /**
@@ -124,7 +148,6 @@ class ApplicationController extends Controller
     public function destroy($id)
     {
         $application = Application::find($id)->delete();
-        return back()
-            ->with('success','Delete successful!');
+        return back()->with('success','Delete successful!');
     }
 }

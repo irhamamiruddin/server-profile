@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applications', function (Blueprint $table) {
-            $table->id();
-            $table->integer("server_id");
-            $table->string("name");
-            $table->string("domain");
-            $table->string("v-technology");
-            $table->string("config_file_url");
-            $table->timestamps();
+        Schema::create('member_user', function (Blueprint $table) {
+            $table->integer('member_id');
+            $table->integer('user_id');
         });
     }
 
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('member_user');
     }
 };

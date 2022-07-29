@@ -5,6 +5,52 @@
                 <div class="overflow-x-auto">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden">
+                            <div
+                                v-if="$page.props.flash.message"
+                                class="bg-green-100 rounded-lg py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center w-full"
+                                role="alert"
+                            >
+                                <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fas"
+                                    data-icon="check-circle"
+                                    class="w-4 h-4 mr-2 fill-current"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"
+                                    ></path>
+                                </svg>
+                                {{ $page.props.flash.message }}
+                            </div>
+                            <!-- <div
+                                v-if="$hasErrors"
+                                class="bg-red-100 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full"
+                                role="alert"
+                            >
+                                <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fas"
+                                    data-icon="times-circle"
+                                    class="w-4 h-4 mr-2 fill-current"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"
+                                    ></path>
+                                </svg>
+                                <div v-for="(error, key) in errors" :key="key">
+                                    {{ error }}
+                                </div>
+                            </div> -->
                             <div class="m-5 flex flex-wrap gap-3">
                                 <div
                                     class="rounded-md bg-white border border-gray-200 p-5 grow"
@@ -159,7 +205,14 @@
                                                                 View
                                                             </button>
                                                         </InertiaLink>
-                                                        <InertiaLink>
+                                                        <InertiaLink
+                                                            :href="
+                                                                route(
+                                                                    'servers.edit',
+                                                                    server.id
+                                                                )
+                                                            "
+                                                        >
                                                             <button
                                                                 v-if="
                                                                     hasAnyPermission(
@@ -173,23 +226,49 @@
                                                                 Edit
                                                             </button>
                                                         </InertiaLink>
-                                                        <button
-                                                            class="inline-block px-2.5 py-2 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+
+                                                        <InertiaLink
                                                             v-if="
-                                                                hasAnyPermission(
-                                                                    [
-                                                                        'server-delete',
-                                                                    ]
-                                                                )
-                                                            "
-                                                            @click="
-                                                                deleteServer(
-                                                                    server.id
-                                                                )
+                                                                !server.deleted_at
                                                             "
                                                         >
-                                                            Delete
-                                                        </button>
+                                                            <button
+                                                                class="inline-block px-2.5 py-2 m-1 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                v-if="
+                                                                    hasAnyPermission(
+                                                                        [
+                                                                            'server-delete',
+                                                                        ]
+                                                                    )
+                                                                "
+                                                                @click="
+                                                                    deleteServer(
+                                                                        server.id
+                                                                    )
+                                                                "
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                        </InertiaLink>
+                                                        <InertiaLink v-else>
+                                                            <button
+                                                                class="inline-block px-2.5 py-2 m-1 bg-green-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-900 hover:shadow-lg focus:bg-green-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                v-if="
+                                                                    hasAnyPermission(
+                                                                        [
+                                                                            'server-delete',
+                                                                        ]
+                                                                    )
+                                                                "
+                                                                @click="
+                                                                    restore(
+                                                                        server.id
+                                                                    )
+                                                                "
+                                                            >
+                                                                Restore
+                                                            </button>
+                                                        </InertiaLink>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -201,7 +280,13 @@
                                     </div>
                                 </div>
 
-                                <ActivityList :activities="activities" />
+                                <div class="flex flex-col gap-3">
+                                    <div class="flex flex-col gap-3">
+                                        <ActivityList
+                                            :activities="activities"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -254,6 +339,15 @@ export default {
             const result = confirm("Confirm delete?");
             if (result) {
                 Inertia.delete(route("servers.destroy", id), {
+                    preserveScroll: true,
+                });
+            }
+        },
+
+        restore(id) {
+            const result = confirm("Confirm restore?");
+            if (result) {
+                Inertia.post(route("servers.restore", id), {
                     preserveScroll: true,
                 });
             }
