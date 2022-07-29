@@ -168,8 +168,7 @@ class ServerController extends Controller
         $server = Server::with('documentations','server_details','members','projects')
                         ->withTrashed()->find($id);
 
-        $storages = $server->server_details->storage_details();
-        dd($storages);
+        $storages = $server->server_details->storage_details()->get();
 
         return Inertia::render('Server/Edit',compact('server','storages'));
     }
