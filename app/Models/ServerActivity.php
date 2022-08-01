@@ -11,7 +11,9 @@ class ServerActivity extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'server_id',
+        'activity_type_id',
+        'user_id',
     ];
 
     // Relationship
