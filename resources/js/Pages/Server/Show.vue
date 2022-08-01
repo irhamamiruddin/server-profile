@@ -63,6 +63,9 @@
                                                                             class="float-right"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#staticBackdrop"
+                                                                            v-if="
+                                                                                isMember
+                                                                            "
                                                                         >
                                                                             Get
                                                                             Credentials&nbsp;
@@ -868,6 +871,6 @@ export default {
         ActivityList,
     },
 
-    props: ["server", "activities", "storages"],
+    props: ["server", "activities", "storages", "isMember"],
 };
 </script>

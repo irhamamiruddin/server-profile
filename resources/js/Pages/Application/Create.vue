@@ -84,304 +84,6 @@
                                                     />
                                                 </div>
 
-                                                <!-- V tech -->
-                                                <div
-                                                    class="col-span-6 sm:col-span-4 mb-4"
-                                                >
-                                                    <JetLabel
-                                                        class="font-bold"
-                                                        for="v-tech"
-                                                        value="Virtualization Technology"
-                                                    />
-                                                    <JetInput
-                                                        id="v-tech"
-                                                        v-model="form.v_tech"
-                                                        type="text"
-                                                        class="mt-1 block w-full"
-                                                        autocomplete="v-tech"
-                                                    />
-                                                    <JetInputError
-                                                        :message="
-                                                            $page.props.errors
-                                                                .v_tech
-                                                        "
-                                                        class="mt-2"
-                                                    />
-                                                </div>
-
-                                                <tbody>
-                                                    <tr
-                                                        v-for="(
-                                                            v_tech, index
-                                                        ) in form.v_tech"
-                                                        :key="index"
-                                                    >
-                                                        <td>
-                                                            <JetInput
-                                                                id="v_tech"
-                                                                v-model="
-                                                                    form.v_technology
-                                                                "
-                                                                type="text"
-                                                                class="mt-1 block w-full"
-                                                                autocomplete="v_tech"
-                                                            />
-                                                            <JetInputError
-                                                                :message="
-                                                                    $page.props
-                                                                        .errors
-                                                                        .v_technology
-                                                                "
-                                                                class="mt-2"
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                            <JetInput
-                                                                id="config_file"
-                                                                v-model="
-                                                                    form.config_file
-                                                                "
-                                                                type="text"
-                                                                class="mt-1 block w-full"
-                                                                autocomplete="config_file"
-                                                            />
-
-                                                            <JetInputError
-                                                                :message="
-                                                                    $page.props
-                                                                        .errors
-                                                                        .config_file
-                                                                "
-                                                                class="mt-2"
-                                                            />
-                                                        </td>
-                                                        <td
-                                                            class="w-12"
-                                                            v-show="index != 0"
-                                                        >
-                                                            <button
-                                                                type="button"
-                                                                class="inline-block px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                                @click="
-                                                                    remove(
-                                                                        index
-                                                                    )
-                                                                "
-                                                            >
-                                                                <svg
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6"
-                                                                    fill="none"
-                                                                    viewBox="0 0 24 24"
-                                                                    stroke="currentColor"
-                                                                    stroke-width="2"
-                                                                >
-                                                                    <path
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        d="M20 12H4"
-                                                                    />
-                                                                </svg>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-
-                                                <button
-                                                    type="button"
-                                                    @click="add()"
-                                                    class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        class="h-6 w-6"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke="currentColor"
-                                                        stroke-width="2"
-                                                    >
-                                                        <path
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                            d="M12 4v16m8-8H4"
-                                                        />
-                                                    </svg>
-                                                </button>
-
-                                                <!-- Desc -->
-                                                <div
-                                                    class="col-span-6 sm:col-span-4 mb-4"
-                                                >
-                                                    <JetLabel
-                                                        class="font-bold"
-                                                        for="description"
-                                                        value="Description"
-                                                    />
-                                                    <JetInput
-                                                        id="description"
-                                                        v-model="
-                                                            form.description
-                                                        "
-                                                        type="text"
-                                                        class="mt-1 block w-full"
-                                                        autocomplete="description"
-                                                    />
-                                                    <JetInputError
-                                                        :message="
-                                                            $page.props.errors
-                                                                .description
-                                                        "
-                                                        class="mt-2"
-                                                    />
-                                                </div>
-
-                                                <div
-                                                    class="flex flex-wrap gap-2"
-                                                >
-                                                    <!-- Version -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4 grow"
-                                                    >
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="version"
-                                                            value="Version / Tag"
-                                                        />
-                                                        <JetInput
-                                                            id="version"
-                                                            v-model="
-                                                                form.version
-                                                            "
-                                                            type="number"
-                                                            class="mt-1 block w-full"
-                                                            autocomplete="version"
-                                                        />
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors
-                                                                    .version
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
-
-                                                    <!-- Ports -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4 grow"
-                                                    >
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="port"
-                                                            value="Port"
-                                                        />
-                                                        <JetInput
-                                                            id="port"
-                                                            v-model="form.ports"
-                                                            type="number"
-                                                            class="mt-1 block w-full"
-                                                            required
-                                                            autocomplete="port"
-                                                        />
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors
-                                                                    .ports
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
-
-                                                    <!-- Status -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4 w-32"
-                                                    >
-                                                        <JetLabel
-                                                            class="font-bold"
-                                                            for="status"
-                                                            value="Status"
-                                                        />
-
-                                                        <Multiselect
-                                                            id="status"
-                                                            mode="single"
-                                                            v-model="
-                                                                form.status
-                                                            "
-                                                            :options="[
-                                                                'Active',
-                                                                'Inactive',
-                                                            ]"
-                                                            :searchable="false"
-                                                            :classes="{
-                                                                container:
-                                                                    'relative w-full mt-1 flex items-center justify-end box-border cursor-pointer border border-gray-300 rounded-md bg-white text-base leading-snug outline-none shadow-sm block w-full',
-                                                                containerActive:
-                                                                    'ring ring-indigo-200 ring-opacity-50 border-indigo-300',
-                                                                optionSelected:
-                                                                    'text-white bg-gray-800',
-                                                                optionSelectedPointed:
-                                                                    'text-white bg-gray-800 opacity-90',
-                                                                spacer: 'h-10 box-content',
-                                                            }"
-                                                        />
-
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors
-                                                                    .status
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
-
-                                                    <!-- Health Status -->
-                                                    <div
-                                                        class="col-span-6 sm:col-span-4 mb-4 w-32"
-                                                    >
-                                                        <JetLabel
-                                                            class="truncate font-bold"
-                                                            for="health_status"
-                                                            value="Health Status"
-                                                        />
-
-                                                        <Multiselect
-                                                            id="health_status"
-                                                            mode="single"
-                                                            v-model="
-                                                                form.health_status
-                                                            "
-                                                            :options="[
-                                                                'Up',
-                                                                'Down',
-                                                            ]"
-                                                            :searchable="false"
-                                                            :classes="{
-                                                                container:
-                                                                    'relative w-full mt-1 flex items-center justify-end box-border cursor-pointer border border-gray-300 rounded-md bg-white text-base leading-snug outline-none shadow-sm block w-full',
-                                                                containerActive:
-                                                                    'ring ring-indigo-200 ring-opacity-50 border-indigo-300',
-                                                                optionSelected:
-                                                                    'text-white bg-gray-800',
-                                                                optionSelectedPointed:
-                                                                    'text-white bg-gray-800 opacity-90',
-                                                                spacer: 'h-10 box-content',
-                                                            }"
-                                                        />
-
-                                                        <JetInputError
-                                                            :message="
-                                                                $page.props
-                                                                    .errors
-                                                                    .health_status
-                                                            "
-                                                            class="mt-2"
-                                                        />
-                                                    </div>
-                                                </div>
-
                                                 <!-- Server -->
                                                 <div
                                                     class="col-span-6 sm:col-span-4 mb-4"
@@ -419,6 +121,395 @@
                                                         class="mt-2"
                                                     />
                                                 </div>
+
+                                                <!-- V tech -->
+                                                <div
+                                                    class="col-span-6 sm:col-span-4 mb-4"
+                                                >
+                                                    <JetLabel
+                                                        class="font-bold"
+                                                        for="v-tech"
+                                                        value="Virtualization Technology"
+                                                    />
+                                                    <JetInput
+                                                        id="v-tech"
+                                                        v-model="form.v_tech"
+                                                        type="text"
+                                                        class="mt-1 block w-full"
+                                                        autocomplete="v-tech"
+                                                    />
+                                                    <JetInputError
+                                                        :message="
+                                                            $page.props.errors
+                                                                .v_tech
+                                                        "
+                                                        class="mt-2"
+                                                    />
+                                                </div>
+                                                <!-- <div class="flex flex-wrap">
+                                                    <div>
+                                                        <div
+                                                            v-for="(
+                                                                file, index
+                                                            ) in form.config_file"
+                                                            :key="index"
+                                                        >
+                                                            <div>
+                                                                <JetInput
+                                                                    id="config_file"
+                                                                    v-model="
+                                                                        form.config_file
+                                                                    "
+                                                                    type="text"
+                                                                    class="mt-1 block w-full"
+                                                                    autocomplete="config_file"
+                                                                />
+
+                                                                <JetInputError
+                                                                    :message="
+                                                                        $page
+                                                                            .props
+                                                                            .errors
+                                                                            .config_file
+                                                                    "
+                                                                    class="mt-2"
+                                                                />
+                                                            </div>
+                                                            <div
+                                                                class="w-12"
+                                                                v-show="
+                                                                    index != 0
+                                                                "
+                                                            >
+                                                                <button
+                                                                    type="button"
+                                                                    class="inline-block px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                    @click="
+                                                                        remove(
+                                                                            index
+                                                                        )
+                                                                    "
+                                                                >
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        class="h-6 w-6"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        stroke="currentColor"
+                                                                        stroke-width="2"
+                                                                    >
+                                                                        <path
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M20 12H4"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <button
+                                                        type="button"
+                                                        @click="addConfig()"
+                                                        class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M12 4v16m8-8H4"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </div> -->
+
+                                                <div
+                                                    class="rounded-md border border-indigo-300 p-5 my-5"
+                                                    v-for="(
+                                                        worker, index
+                                                    ) in form.workers"
+                                                    :key="index"
+                                                >
+                                                    <!-- Worker Name -->
+                                                    <div
+                                                        class="col-span-6 sm:col-span-4 mb-4"
+                                                    >
+                                                        <JetLabel
+                                                            class="font-bold"
+                                                            for="worker_name"
+                                                            value="Worker Name"
+                                                        />
+                                                        <JetInput
+                                                            id="worker_name"
+                                                            v-model="
+                                                                worker.name
+                                                            "
+                                                            type="text"
+                                                            class="mt-1 block w-full"
+                                                            autocomplete="worker_name"
+                                                        />
+                                                        <JetInputError
+                                                            :message="
+                                                                $page.props
+                                                                    .errors
+                                                                    .workers
+                                                            "
+                                                            class="mt-2"
+                                                        />
+                                                    </div>
+
+                                                    <div
+                                                        class="flex flex-wrap gap-2"
+                                                    >
+                                                        <!-- Version -->
+                                                        <div
+                                                            class="col-span-6 sm:col-span-4 mb-4 grow"
+                                                        >
+                                                            <JetLabel
+                                                                class="font-bold"
+                                                                for="version"
+                                                                value="Version / Tag"
+                                                            />
+                                                            <JetInput
+                                                                id="version"
+                                                                v-model="
+                                                                    worker.version
+                                                                "
+                                                                type="number"
+                                                                class="mt-1 block w-full"
+                                                                autocomplete="version"
+                                                            />
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .workers
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
+
+                                                        <!-- Status -->
+                                                        <div
+                                                            class="col-span-6 sm:col-span-4 mb-4 w-64"
+                                                        >
+                                                            <JetLabel
+                                                                class="font-bold"
+                                                                for="status"
+                                                                value="Status"
+                                                            />
+
+                                                            <Multiselect
+                                                                id="status"
+                                                                mode="single"
+                                                                v-model="
+                                                                    worker.status
+                                                                "
+                                                                :options="[
+                                                                    'Active',
+                                                                    'Inactive',
+                                                                ]"
+                                                                :searchable="
+                                                                    false
+                                                                "
+                                                                :classes="{
+                                                                    container:
+                                                                        'relative w-full mt-1 flex items-center justify-end box-border cursor-pointer border border-gray-300 rounded-md bg-white text-base leading-snug outline-none shadow-sm block w-full',
+                                                                    containerActive:
+                                                                        'ring ring-indigo-200 ring-opacity-50 border-indigo-300',
+                                                                    optionSelected:
+                                                                        'text-white bg-gray-800',
+                                                                    optionSelectedPointed:
+                                                                        'text-white bg-gray-800 opacity-90',
+                                                                    spacer: 'h-10 box-content',
+                                                                }"
+                                                            />
+
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .workers
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
+
+                                                        <!-- Health Status -->
+                                                        <div
+                                                            class="col-span-6 sm:col-span-4 mb-4 w-64"
+                                                        >
+                                                            <JetLabel
+                                                                class="truncate font-bold"
+                                                                for="health_status"
+                                                                value="Health Status"
+                                                            />
+
+                                                            <Multiselect
+                                                                id="health_status"
+                                                                mode="single"
+                                                                v-model="
+                                                                    worker.health_status
+                                                                "
+                                                                :options="[
+                                                                    'Up',
+                                                                    'Down',
+                                                                ]"
+                                                                :searchable="
+                                                                    false
+                                                                "
+                                                                :classes="{
+                                                                    container:
+                                                                        'relative w-full mt-1 flex items-center justify-end box-border cursor-pointer border border-gray-300 rounded-md bg-white text-base leading-snug outline-none shadow-sm block w-full',
+                                                                    containerActive:
+                                                                        'ring ring-indigo-200 ring-opacity-50 border-indigo-300',
+                                                                    optionSelected:
+                                                                        'text-white bg-gray-800',
+                                                                    optionSelectedPointed:
+                                                                        'text-white bg-gray-800 opacity-90',
+                                                                    spacer: 'h-10 box-content',
+                                                                }"
+                                                            />
+
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .workers
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    <div
+                                                        v-for="(
+                                                            port, item
+                                                        ) in worker.ports"
+                                                        :key="item"
+                                                    >
+                                                        <div>
+                                                            <JetInput
+                                                                id="ports"
+                                                                v-model="
+                                                                    worker.ports
+                                                                "
+                                                                type="text"
+                                                                class="mt-1 block w-full"
+                                                                autocomplete="ports"
+                                                            />
+
+                                                            <JetInputError
+                                                                :message="
+                                                                    $page.props
+                                                                        .errors
+                                                                        .workers
+                                                                "
+                                                                class="mt-2"
+                                                            />
+                                                        </div>
+                                                        <div
+                                                            class="w-12"
+                                                            v-show="index != 0"
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                @click="
+                                                                    removePort(
+                                                                        item
+                                                                    )
+                                                                "
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-6 w-6"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                    stroke-width="2"
+                                                                >
+                                                                    <path
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        d="M20 12H4"
+                                                                    />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <button
+                                                        type="button"
+                                                        @click="addPort()"
+                                                        class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M12 4v16m8-8H4"
+                                                            />
+                                                        </svg>
+                                                    </button> -->
+
+                                                    <button
+                                                        v-show="index != 0"
+                                                        type="button"
+                                                        @click="removeWorker()"
+                                                        class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M20 12H4"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <button
+                                                    type="button"
+                                                    @click="addWorker()"
+                                                    class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                >
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        class="h-6 w-6"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke="currentColor"
+                                                        stroke-width="2"
+                                                    >
+                                                        <path
+                                                            stroke-linecap="round"
+                                                            stroke-linejoin="round"
+                                                            d="M12 4v16m8-8H4"
+                                                        />
+                                                    </svg>
+                                                </button>
 
                                                 <JetButton
                                                     :type="'button'"
@@ -470,14 +561,18 @@ export default {
             form: {
                 name: null,
                 domain: null,
+                server: null,
                 v_tech: null,
                 config_file: [],
-                description: null,
-                version: null,
-                ports: null,
-                status: null,
-                health_status: null,
-                server: null,
+                workers: [
+                    {
+                        name: null,
+                        version: null,
+                        ports: [],
+                        health_status: null,
+                        status: null,
+                    },
+                ],
             },
             server_name: this.servers,
         };
@@ -488,11 +583,32 @@ export default {
             Inertia.post(route("applications.store", form));
         },
 
-        add() {
-            this.form.v_tech.push({});
+        addConfig() {
+            this.form.config_file.push();
         },
-        remove(index) {
-            this.form.v_tech.splice(index, 1);
+
+        removeConfig(index) {
+            this.form.config_file.splice(index, 1);
+        },
+
+        addWorker() {
+            this.form.workers.push({
+                name: null,
+                version: null,
+                ports: [],
+                health_status: null,
+                status: null,
+            });
+        },
+        removeWorker(index) {
+            this.form.workers.splice(index, 1);
+        },
+
+        addPort() {
+            this.form.workers.ports.push();
+        },
+        removePort(index) {
+            this.form.workers.ports.splice(index, 1);
         },
     },
 };

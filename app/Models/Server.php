@@ -28,6 +28,11 @@ class Server extends Model
         return $this->hasOne(ServerDetail::class);
     }
 
+    public function storages()
+    {
+        return $this->hasManyThrough(ServerStorageDetail::class,ServerDetail::class);
+    }
+
     public function documentations()
     {
         return $this->hasMany(Documentation::class);
