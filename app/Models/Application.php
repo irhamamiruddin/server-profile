@@ -27,16 +27,6 @@ class Application extends Model
         'application_detail_id',
     ];
 
-    // Relationship Declarations
-    public function application_detail()
-    {
-        if ($this->server) {
-            return $this->server->application_detail;
-        }
-
-        return $this->belongsTo(ApplicationDetail::class);
-        // return $this->belongsTo(ApplicationDetail::class,Server::class, 'id','server_id');
-    }
 
     public function server()
     {

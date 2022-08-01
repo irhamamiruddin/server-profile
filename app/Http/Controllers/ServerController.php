@@ -6,6 +6,7 @@ use App\Models\Server;
 use App\Models\ServerDetail;
 use App\Models\ServerActivity;
 use App\Models\ActivityType;
+use App\Models\User;
 use App\Models\Documentation;
 use App\Models\ServerStorageDetail;
 use Inertia\Inertia;
@@ -102,16 +103,31 @@ class ServerController extends Controller
             $specification = $server->server_details()->create($specification);
             $specification->storage_details()->createMany($storages);
 
-            //save activity
+            //save activity log
             $activity = ActivityType::firstOrCreate(['name'=>Str::snake('create '.$request->name),'description'=>$request->name.' Created']);
             ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
 
             if($documents !== null){
                 $server->documentations()->createMany($documents);
+
+                foreach($documents as $document) {
+                    dd($document->name);
+                }
+                //save activity log
+                // $activity = ActivityType::firstOrCreate(['name'=>Str::snake('create '.$request->name),'description'=>$request->name.' Created']);
+                // ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
             }
 
             if($members !== null){
-                $server->members()->createMany($members);
+                $members = $server->members()->createMany($members);
+
+                // foreach($members as $member)
+                // {
+                //     $user = User::where('name',$member->name)->first();
+                //     if($user){
+
+                //     }
+                // }
             }
 
             if($projects !== null){
@@ -141,14 +157,46 @@ class ServerController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(5);
 
-        // $canView = function(){
-        //     Member::
+        $members = Server::query()->where('id','=',$id)
+                        ->with(['members' => function ($query) {
+                            $query->select('id','name');
+                        }])->get();
+
+        // $count = 0;
+        // foreach($members as $item){
+        //     $count = $count + 1;
         // };
+
+        // dd($count);
+
+        $isMember = function() use ($members) {
+            // $user = User::where('name',$server->member()->get('name'))->first();
+            // if($user)
+            //     return true;
+            // else
+            //     return false;
+            foreach($members as $member)
+            {
+                if(Auth::user()->name == $member->name)
+                    return true;
+            }
+
+            return false;
+
+        };
+
+        // $isMember = foreach($members as $member)
+        // {
+        //     $user = User::where('name',$member->name)->first();
+        //     if($user){
+
+        //     }
+        // }
 
         $storages = $server->server_details->storage_details()->get();
         $storages = self::_group_by($storages->toArray(), 'partition');
 
-        return Inertia::render('Server/Show',compact('server','activities','storages'));
+        return Inertia::render('Server/Show',compact('server','activities','storages','isMember'));
     }
 
     // To group by partition
@@ -199,10 +247,11 @@ class ServerController extends Controller
             # Update server informations
             $server->update($input_server);
             $server->server_details()->update($input_specification);
+            // $server->storages()->update($input_storages);
 
-            if($input_documents !== null){
+            // if($input_documents !== null){
 
-                $documents = $server->documentations()->upsert($input_documents,['id'],['name','url']);
+            //     $documents = $server->documentations()->upsert($input_documents,['id'],['name','url']);
 
 
 
@@ -211,10 +260,10 @@ class ServerController extends Controller
                 // $document = Documentation::find(1)->updateOrCreate($input_documents);
                 // $documents = Documentation::updateOrCreate($input_documents[0]);
                 // $server->documentations()->sync($documents);
-            }
+            // }
 
             // if($input_members !== null){
-            //     $server->members()->saveMany($input_members);
+            //     $server->members()->update($input_members);
             // }
 
             // if($input_projects !== null){
