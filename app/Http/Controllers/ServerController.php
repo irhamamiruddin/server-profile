@@ -6,11 +6,14 @@ use App\Models\Server;
 use App\Models\ServerDetail;
 use App\Models\ServerActivity;
 use App\Models\ActivityType;
+use App\Models\Documentation;
 use App\Models\ServerStorageDetail;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ServerController extends Controller
 {
@@ -86,7 +89,6 @@ class ServerController extends Controller
             // 'project_nature' => 'required',
         ]);
 
-
         DB::transaction(function () use ($request){
 
             $server = $request->only('name','domain','environment','ip_address','port','dns','status');
@@ -100,24 +102,25 @@ class ServerController extends Controller
             $specification = $server->server_details()->create($specification);
             $specification->storage_details()->createMany($storages);
 
-            if(!empty($documents)){
+            //save activity
+            $activity = ActivityType::firstOrCreate(['name'=>Str::snake('create '.$request->name),'description'=>$request->name.' Created']);
+            ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
+
+            if($documents !== null){
                 $server->documentations()->createMany($documents);
             }
 
-            if(!empty($members)){
+            if($members !== null){
                 $server->members()->createMany($members);
             }
 
-            if(!empty($projects)){
+            if($projects !== null){
                 $server->projects()->createMany($projects);
             }
 
-            //save activity
         });
 
-
         return redirect()->route('servers.index')->with('message','Create successful.');
-
 
     }
 
@@ -182,7 +185,46 @@ class ServerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        DB::transaction(function () use ($request,$id){
+
+            $input_server = $request->only('name','domain','environment','ip_address','port','dns','status');
+            $input_specification = $request->only('operating_system','vcpu_amount','memory');
+            $input_storages = $request->storages;
+            $input_documents = $request->documents;
+            $input_members = $request->members;
+            $input_projects = $request->projects;
+
+            $server = Server::withTrashed()->find($id);
+
+            # Update server informations
+            $server->update($input_server);
+            $server->server_details()->update($input_specification);
+
+            if($input_documents !== null){
+
+                $documents = $server->documentations()->upsert($input_documents,['id'],['name','url']);
+
+
+
+                // $documents->find(['server_id' => $id]);
+
+                // $document = Documentation::find(1)->updateOrCreate($input_documents);
+                // $documents = Documentation::updateOrCreate($input_documents[0]);
+                // $server->documentations()->sync($documents);
+            }
+
+            // if($input_members !== null){
+            //     $server->members()->saveMany($input_members);
+            // }
+
+            // if($input_projects !== null){
+            //     $server->projects()->saveMany($input_projects);
+            // }
+
+        });
+
+
+        return redirect()->route('servers.index')->with('message','Update successful.');
     }
 
     /**

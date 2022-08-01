@@ -60,7 +60,7 @@ class Server extends Model
      */
     public function activities()
     {
-        return $this->hasManyThrough(ActivityType::class, ServerActivity::class);
+        return $this->hasMany(ActivityType::class);
     }
 
     /**

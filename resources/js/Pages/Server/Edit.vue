@@ -1212,8 +1212,8 @@ export default {
 
         addMember() {
             this.form.members.push({
-                member_name: null,
-                member_status: null,
+                name: null,
+                status: null,
             });
         },
         removeMember(index) {
@@ -1222,8 +1222,8 @@ export default {
 
         addProject() {
             this.form.projects.push({
-                project_code: null,
-                project_name: null,
+                code: null,
+                name: null,
                 nature: null,
             });
         },
