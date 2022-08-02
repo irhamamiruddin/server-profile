@@ -415,6 +415,9 @@
                                                                                 target="_blank"
                                                                             >
                                                                                 <JetButton
+                                                                                    v-if="
+                                                                                        isMember
+                                                                                    "
                                                                                     class="place-content-center"
                                                                                 >
                                                                                     View

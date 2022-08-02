@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Server;
+use App\Models\Member;
 use App\Models\ServerDetail;
 use App\Models\ServerActivity;
 use App\Models\ActivityType;
@@ -109,13 +110,6 @@ class ServerController extends Controller
 
             if($documents !== null){
                 $server->documentations()->createMany($documents);
-
-                foreach($documents as $document) {
-                    dd($document->name);
-                }
-                //save activity log
-                // $activity = ActivityType::firstOrCreate(['name'=>Str::snake('create '.$request->name),'description'=>$request->name.' Created']);
-                // ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
             }
 
             if($members !== null){
@@ -157,41 +151,12 @@ class ServerController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->paginate(5);
 
-        $members = Server::query()->where('id','=',$id)
-                        ->with(['members' => function ($query) {
-                            $query->select('id','name');
-                        }])->get();
+        $isMember = false;
 
-        // $count = 0;
-        // foreach($members as $item){
-        //     $count = $count + 1;
-        // };
-
-        // dd($count);
-
-        $isMember = function() use ($members) {
-            // $user = User::where('name',$server->member()->get('name'))->first();
-            // if($user)
-            //     return true;
-            // else
-            //     return false;
-            foreach($members as $member)
-            {
-                if(Auth::user()->name == $member->name)
-                    return true;
-            }
-
-            return false;
-
-        };
-
-        // $isMember = foreach($members as $member)
-        // {
-        //     $user = User::where('name',$member->name)->first();
-        //     if($user){
-
-        //     }
-        // }
+        foreach ($server->members as $member) {
+            if(Auth::user()->name == $member->name)
+                $isMember = true;
+        }
 
         $storages = $server->server_details->storage_details()->get();
         $storages = self::_group_by($storages->toArray(), 'partition');
@@ -247,7 +212,8 @@ class ServerController extends Controller
             # Update server informations
             $server->update($input_server);
             $server->server_details()->update($input_specification);
-            // $server->storages()->update($input_storages);
+            $server->storages()->update($input_storages);
+
 
             // if($input_documents !== null){
 
