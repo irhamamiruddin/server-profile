@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Documentation;
 use App\Models\Member;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentationController extends Controller
 {
@@ -23,20 +24,23 @@ class DocumentationController extends Controller
     public function index(Request $request)
     {
         $queries = ['search','page'];
-        // $documents = Documentation::with('server')
-        //                 ->filter($request->only($queries))
-        //                 ->paginate(10);
 
         $documents = Documentation::with(['server' => function ($query) {
                             $query->withTrashed();
                         }])->filter($request->only($queries))->paginate(10);
 
-        $isMember = false;
-        $members = Member::all();
-        $server = $members->servers->name;
-        dd($server);
+        // find user in members table
+        $member = Member::where('name', Auth::user()->name)->first();
 
-        return Inertia::render("Documentation/Index",compact('documents','isMember'));
+        // if user exist in members, find servers associate with members
+        $serverPermitted = [];
+        if($member){
+            foreach ($member->servers as $server) {
+                array_push($serverPermitted,$server->pivot->server_id);
+            }
+        }
+
+        return Inertia::render("Documentation/Index",compact('documents','serverPermitted'));
     }
 
     /**

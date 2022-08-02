@@ -96,6 +96,12 @@
                                                         "
                                                         title="Open Document"
                                                         target="_blank"
+                                                        v-if="
+                                                            serverPermitted.includes(
+                                                                document.server
+                                                                    .id
+                                                            )
+                                                        "
                                                     >
                                                         <JetButton
                                                             v-if="
@@ -147,7 +153,11 @@ export default {
         InertiaLink,
     },
 
-    props: ["documents", "filters", "isMember"],
+    props: {
+        documents: Object,
+        serverPermitted: Object,
+        filters: Object,
+    },
 
     data() {
         return {
