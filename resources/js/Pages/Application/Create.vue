@@ -146,8 +146,19 @@
                                                         class="mt-2"
                                                     />
                                                 </div>
-                                                <!-- <div class="flex flex-wrap">
-                                                    <div>
+
+                                                <!-- Config File -->
+                                                <JetLabel
+                                                    class="font-bold"
+                                                    for="config_file"
+                                                    value="Config Files Url"
+                                                />
+                                                <div
+                                                    class="flex flex-wrap gap-1"
+                                                >
+                                                    <div
+                                                        class="flex flex-wrap gap-1"
+                                                    >
                                                         <div
                                                             v-for="(
                                                                 file, index
@@ -158,7 +169,9 @@
                                                                 <JetInput
                                                                     id="config_file"
                                                                     v-model="
-                                                                        form.config_file
+                                                                        file[
+                                                                            'index'
+                                                                        ]
                                                                     "
                                                                     type="text"
                                                                     class="mt-1 block w-full"
@@ -175,44 +188,41 @@
                                                                     class="mt-2"
                                                                 />
                                                             </div>
-                                                            <div
-                                                                class="w-12"
+                                                            <!-- class="w-12"
                                                                 v-show="
                                                                     index != 0
-                                                                "
-                                                            >
-                                                                <button
-                                                                    type="button"
-                                                                    class="inline-block px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                                    @click="
-                                                                        remove(
-                                                                            index
-                                                                        )
-                                                                    "
-                                                                >
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        class="h-6 w-6"
-                                                                        fill="none"
-                                                                        viewBox="0 0 24 24"
-                                                                        stroke="currentColor"
-                                                                        stroke-width="2"
-                                                                    >
-                                                                        <path
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"
-                                                                            d="M20 12H4"
-                                                                        />
-                                                                    </svg>
-                                                                </button>
-                                                            </div>
+                                                                " -->
+                                                            <div></div>
                                                         </div>
                                                     </div>
 
                                                     <button
                                                         type="button"
+                                                        class="px-2.5 py-1.5 mt-1 bg-red-600 text-white leading-tight rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                        @click="
+                                                            removeConfig(index)
+                                                        "
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M20 12H4"
+                                                            />
+                                                        </svg>
+                                                    </button>
+
+                                                    <button
+                                                        type="button"
                                                         @click="addConfig()"
-                                                        class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                        class="px-2.5 py-1.5 mt-1 bg-blue-600 text-white leading-tight text-xs rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                                                     >
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +239,7 @@
                                                             />
                                                         </svg>
                                                     </button>
-                                                </div> -->
+                                                </div>
 
                                                 <div
                                                     class="rounded-md border border-indigo-300 p-5 my-5"
@@ -238,9 +248,31 @@
                                                     ) in form.workers"
                                                     :key="index"
                                                 >
+                                                    <button
+                                                        v-show="index != 0"
+                                                        type="button"
+                                                        @click="removeWorker()"
+                                                        class="inline-flex items-center float-right grid place-content-center px-2.5 py-1.5 w-16 mt-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                    >
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            class="h-6 w-6"
+                                                            fill="none"
+                                                            viewBox="0 0 24 24"
+                                                            stroke="currentColor"
+                                                            stroke-width="2"
+                                                        >
+                                                            <path
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                                d="M20 12H4"
+                                                            />
+                                                        </svg>
+                                                    </button>
+
                                                     <!-- Worker Name -->
                                                     <div
-                                                        class="col-span-6 sm:col-span-4 mb-4"
+                                                        class="clear-right col-span-6 sm:col-span-4 mb-4"
                                                     >
                                                         <JetLabel
                                                             class="font-bold"
@@ -417,7 +449,6 @@
                                                             />
                                                         </div>
                                                         <div
-                                                            class="w-12"
                                                             v-show="index != 0"
                                                         >
                                                             <button
@@ -467,28 +498,6 @@
                                                             />
                                                         </svg>
                                                     </button> -->
-
-                                                    <button
-                                                        v-show="index != 0"
-                                                        type="button"
-                                                        @click="removeWorker()"
-                                                        class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-6 w-6"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor"
-                                                            stroke-width="2"
-                                                        >
-                                                            <path
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                                d="M20 12H4"
-                                                            />
-                                                        </svg>
-                                                    </button>
                                                 </div>
                                                 <button
                                                     type="button"

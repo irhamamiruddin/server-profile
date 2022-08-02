@@ -83,7 +83,7 @@ class AuthServiceProvider extends ServiceProvider
 
                 return $user;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Log::error($e->getMessage(), [__FUNCTION__]);
         }
         return false;

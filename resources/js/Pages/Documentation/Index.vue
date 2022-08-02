@@ -147,7 +147,7 @@ export default {
         InertiaLink,
     },
 
-    props: ["documents", "filters"],
+    props: ["documents", "filters", "isMember"],
 
     data() {
         return {

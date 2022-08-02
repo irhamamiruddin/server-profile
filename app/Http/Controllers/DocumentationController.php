@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Documentation;
+use App\Models\Member;
 use Inertia\Inertia;
 
 class DocumentationController extends Controller
@@ -30,7 +31,12 @@ class DocumentationController extends Controller
                             $query->withTrashed();
                         }])->filter($request->only($queries))->paginate(10);
 
-        return Inertia::render("Documentation/Index",compact('documents'));
+        $isMember = false;
+        $members = Member::all();
+        $server = $members->servers->name;
+        dd($server);
+
+        return Inertia::render("Documentation/Index",compact('documents','isMember'));
     }
 
     /**
