@@ -15,8 +15,6 @@ class Documentation extends Model
         'url'
     ];
 
-    protected $is_member = false;
-
     public function server()
     {
         return $this->belongsTo(Server::class);
@@ -36,14 +34,6 @@ class Documentation extends Model
                 $query->where('name', 'like', '%' . $search . '%');
             });
         });
-    }
-
-    public function isMember():Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => $value,
-            set: fn ($value) => $value,
-        );
     }
 
 }

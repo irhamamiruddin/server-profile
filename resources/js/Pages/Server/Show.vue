@@ -682,7 +682,7 @@
                                                                                     application.status
                                                                                 }}
                                                                             </span>
-                                                                            <span
+                                                                            <!-- <span
                                                                                 v-if="
                                                                                     application.health_status ==
                                                                                     'Up'
@@ -706,7 +706,7 @@
                                                                                 {{
                                                                                     application.health_last_checked
                                                                                 }}
-                                                                            </span>
+                                                                            </span> -->
                                                                         </td>
                                                                         <td
                                                                             class="sm:text-sm lg:text-base text-gray-900 font-light p-1 whitespace-nowrap"

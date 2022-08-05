@@ -32,7 +32,7 @@ class ApplicationController extends Controller
 
         $applications = Application::with(['server' => function ($query) {
             $query->withTrashed();
-        }])->filter($request->only($queries))->paginate(5);
+        }])->withTrashed()->filter($request->only($queries))->paginate(5);
 
         return Inertia::render('Application/Index',compact('applications'));
     }
@@ -58,21 +58,28 @@ class ApplicationController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'description'=> 'required',
-            'version' => 'required|numeric',
-            'ports' => 'required|numeric',
-            'status'=> 'required',
-            'health_status' => 'required',
+            'domain' => 'required',
             'server' => 'required',
+            'v_tech' => 'required',
+            'config_file' => 'required',
+            'workers' => 'required',
         ]);
 
         $server = Server::where('name','=',$request->input('server'))->first();
-        $input = $request->only('name','description','version','ports','status','health_status');
-        $input['health_last_checked'] = Carbon::now();
-        $server->applications()->create($input);
+        $input_application = $request->only('name','domain');
+        $input_application['v-technology'] = $request->input('v_tech');
+        $input_application['config_file_url'] = $request->input('config_file');
+        // $applications = $server->applications()->create($input_application);
+
+        // dd($request->workers);
+        $input_worker = $request->only('workers');
+        // $input_worker->append(['health_last_checked'=>Carbon::now()]);
+        dd($input_worker->name);
+        // $workers = $applications->workers()->createMany($request->workers,['health_last_checked'=>Carbon::now()]);
+        // dd($workers);
 
         return redirect()->route('applications.index')
-            ->with('success','Application created successfully!');
+            ->with('message','Application created successfully!');
     }
 
     /**
@@ -136,7 +143,7 @@ class ApplicationController extends Controller
         $application->server()->save($input);
 
         return redirect()->route('applications.index')
-            ->with('success','Application updated successfully');
+            ->with('message','Application updated successfully');
     }
 
     /**
@@ -148,6 +155,12 @@ class ApplicationController extends Controller
     public function destroy($id)
     {
         $application = Application::find($id)->delete();
-        return back()->with('success','Delete successful!');
+        return back()->with('message','Delete successful!');
     }
+
+    public function restore($id)
+	{
+		Application::withTrashed()->find($id)->restore();
+		return back()->with('message','Data restored!');
+	}
 }

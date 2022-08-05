@@ -16,7 +16,7 @@ class Worker extends Model
     protected $fillable = [
         'name',
         'version',
-        'ports',
+        // 'ports',
         'health_status',
         'health_last_checked',
         'status',

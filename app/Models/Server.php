@@ -28,11 +28,6 @@ class Server extends Model
         return $this->hasOne(ServerDetail::class);
     }
 
-    public function storages()
-    {
-        return $this->hasManyThrough(ServerStorageDetail::class,ServerDetail::class);
-    }
-
     public function documentations()
     {
         return $this->hasMany(Documentation::class);
@@ -46,6 +41,16 @@ class Server extends Model
     public function applications()
     {
         return $this->hasMany(Application::class);
+    }
+
+    /**
+     * Get all of the workers for the Server
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function workers()
+    {
+        return $this->hasManyThrough(Worker::class, Application::class);
     }
 
     public function members()
@@ -68,15 +73,6 @@ class Server extends Model
         return $this->hasMany(ActivityType::class);
     }
 
-    /**
-     * Get the application_detail associated with the Server
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function application_detail()
-    {
-        return $this->hasOne(ApplicationDetail::class);
-    }
 
     // Accessors
     protected function status(): Attribute
