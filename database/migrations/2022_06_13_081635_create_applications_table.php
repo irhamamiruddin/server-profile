@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string("name");
             $table->string("domain");
             $table->string("v-technology");
-            $table->string("config_file_url");
+            $table->json("config_file_url");
+            $table->enum('status',['active','inactive']);
             $table->timestamps();
         });
     }

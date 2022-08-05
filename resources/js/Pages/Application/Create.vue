@@ -1,5 +1,5 @@
 <template>
-    <AppLayout>
+    <AppLayout title="Create Application">
         <div class="py-2">
             <div class="max-w-7xl mx-auto sm:px-2 lg:px-2">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -147,6 +147,46 @@
                                                     />
                                                 </div>
 
+                                                <!-- Status -->
+                                                <div
+                                                    class="col-span-6 sm:col-span-4 mb-4"
+                                                >
+                                                    <JetLabel
+                                                        class="font-bold"
+                                                        for="status"
+                                                        value="Status"
+                                                    />
+
+                                                    <Multiselect
+                                                        mode="single"
+                                                        v-model="form.status"
+                                                        :options="[
+                                                            'Active',
+                                                            'Inactive',
+                                                        ]"
+                                                        :searchable="false"
+                                                        :classes="{
+                                                            container:
+                                                                'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border border-gray-300 rounded-md bg-white text-base leading-snug outline-none shadow-sm mt-1 block w-full',
+                                                            containerActive:
+                                                                'ring ring-indigo-200 ring-opacity-50 border-indigo-300',
+                                                            optionSelected:
+                                                                'text-white bg-gray-800',
+                                                            optionSelectedPointed:
+                                                                'text-white bg-gray-800 opacity-90',
+                                                            spacer: 'h-10 py-px box-content',
+                                                        }"
+                                                    />
+
+                                                    <JetInputError
+                                                        :message="
+                                                            $page.props.errors
+                                                                .status
+                                                        "
+                                                        class="mt-2"
+                                                    />
+                                                </div>
+
                                                 <!-- Config File -->
                                                 <JetLabel
                                                     class="font-bold"
@@ -157,72 +197,56 @@
                                                     class="flex flex-wrap gap-1"
                                                 >
                                                     <div
-                                                        class="flex flex-wrap gap-1"
+                                                        v-for="(
+                                                            file, index
+                                                        ) in form.config_file"
+                                                        :key="index"
+                                                        class="flex flex-wrap"
                                                     >
-                                                        <div
-                                                            v-for="(
-                                                                file, index
-                                                            ) in form.config_file"
-                                                            :key="index"
-                                                        >
-                                                            <div>
-                                                                <JetInput
-                                                                    id="config_file"
-                                                                    v-model="
-                                                                        file[
-                                                                            'index'
-                                                                        ]
-                                                                    "
-                                                                    type="text"
-                                                                    class="mt-1 block w-full"
-                                                                    autocomplete="config_file"
-                                                                />
+                                                        <div>
+                                                            <JetInput
+                                                                id="config_file"
+                                                                v-model="
+                                                                    file.url
+                                                                "
+                                                                type="text"
+                                                                class="block w-full rounded-r-none"
+                                                                autocomplete="config_file"
+                                                            />
+                                                        </div>
 
-                                                                <JetInputError
-                                                                    :message="
-                                                                        $page
-                                                                            .props
-                                                                            .errors
-                                                                            .config_file
-                                                                    "
-                                                                    class="mt-2"
-                                                                />
-                                                            </div>
-                                                            <!-- class="w-12"
-                                                                v-show="
-                                                                    index != 0
-                                                                " -->
-                                                            <div></div>
+                                                        <div>
+                                                            <button
+                                                                type="button"
+                                                                class="px-2.5 py-1.5 h-full bg-red-600 text-white leading-tight rounded-md rounded-l-none shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                @click="
+                                                                    removeConfig(
+                                                                        index
+                                                                    )
+                                                                "
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-6 w-6"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                    stroke-width="2"
+                                                                >
+                                                                    <path
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        d="M20 12H4"
+                                                                    />
+                                                                </svg>
+                                                            </button>
                                                         </div>
                                                     </div>
 
                                                     <button
                                                         type="button"
-                                                        class="px-2.5 py-1.5 mt-1 bg-red-600 text-white leading-tight rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                        @click="
-                                                            removeConfig(index)
-                                                        "
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-6 w-6"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor"
-                                                            stroke-width="2"
-                                                        >
-                                                            <path
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                                d="M20 12H4"
-                                                            />
-                                                        </svg>
-                                                    </button>
-
-                                                    <button
-                                                        type="button"
                                                         @click="addConfig()"
-                                                        class="px-2.5 py-1.5 mt-1 bg-blue-600 text-white leading-tight text-xs rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                        class="px-2.5 py-1.5 bg-blue-600 text-white leading-tight text-xs rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                                                     >
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
@@ -241,6 +265,14 @@
                                                     </button>
                                                 </div>
 
+                                                <JetInputError
+                                                    :message="
+                                                        $page.props.errors
+                                                            .config_file
+                                                    "
+                                                    class="mt-2"
+                                                />
+
                                                 <div
                                                     class="rounded-md border border-indigo-300 p-5 my-5"
                                                     v-for="(
@@ -252,7 +284,7 @@
                                                         v-show="index != 0"
                                                         type="button"
                                                         @click="removeWorker()"
-                                                        class="inline-flex items-center float-right grid place-content-center px-2.5 py-1.5 w-16 mt-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                        class="items-center float-right grid place-content-center px-2.5 py-1.5 w-16 mt-2 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                                                     >
                                                         <svg
                                                             xmlns="http://www.w3.org/2000/svg"
@@ -422,87 +454,95 @@
                                                         </div>
                                                     </div>
 
+                                                    <JetLabel
+                                                        class="font-bold"
+                                                        for="port_no"
+                                                        value="Ports"
+                                                    />
                                                     <div
-                                                        v-for="(
-                                                            port, item
-                                                        ) in worker.ports"
-                                                        :key="item"
+                                                        class="flex flex-wrap gap-1"
                                                     >
-                                                        <div>
-                                                            <JetInput
-                                                                id="ports"
-                                                                v-model="
-                                                                    worker.ports
-                                                                "
-                                                                type="text"
-                                                                class="mt-1 block w-full"
-                                                                autocomplete="ports"
-                                                            />
-
-                                                            <JetInputError
-                                                                :message="
-                                                                    $page.props
-                                                                        .errors
-                                                                        .workers
-                                                                "
-                                                                class="mt-2"
-                                                            />
-                                                        </div>
                                                         <div
-                                                            v-show="index != 0"
+                                                            v-for="(
+                                                                port, i
+                                                            ) in worker.ports"
+                                                            :key="i"
+                                                            class="flex flex-wrap"
                                                         >
-                                                            <button
-                                                                type="button"
-                                                                class="px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                                @click="
-                                                                    removePort(
-                                                                        item
-                                                                    )
-                                                                "
-                                                            >
-                                                                <svg
-                                                                    xmlns="http://www.w3.org/2000/svg"
-                                                                    class="h-6 w-6"
-                                                                    fill="none"
-                                                                    viewBox="0 0 24 24"
-                                                                    stroke="currentColor"
-                                                                    stroke-width="2"
+                                                            <!-- <div>
+                                                                <JetInput
+                                                                    id="port_no"
+                                                                    v-model="
+                                                                        port.no
+                                                                    "
+                                                                    type="text"
+                                                                    class="block w-32 rounded-r-none"
+                                                                    autocomplete="port_no"
+                                                                />
+                                                            </div> -->
+
+                                                            <div>
+                                                                <button
+                                                                    type="button"
+                                                                    class="px-2.5 py-1.5 h-full bg-red-600 text-white leading-tight rounded-md rounded-l-none shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                    @click="
+                                                                        removePort(
+                                                                            i
+                                                                        )
+                                                                    "
                                                                 >
-                                                                    <path
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                        d="M20 12H4"
-                                                                    />
-                                                                </svg>
-                                                            </button>
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        class="h-6 w-6"
+                                                                        fill="none"
+                                                                        viewBox="0 0 24 24"
+                                                                        stroke="currentColor"
+                                                                        stroke-width="2"
+                                                                    >
+                                                                        <path
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M20 12H4"
+                                                                        />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
                                                         </div>
+
+                                                        <button
+                                                            type="button"
+                                                            @click="addPort()"
+                                                            class="px-2.5 py-1.5 bg-blue-600 text-white leading-tight text-xs rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                        >
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                class="h-6 w-6"
+                                                                fill="none"
+                                                                viewBox="0 0 24 24"
+                                                                stroke="currentColor"
+                                                                stroke-width="2"
+                                                            >
+                                                                <path
+                                                                    stroke-linecap="round"
+                                                                    stroke-linejoin="round"
+                                                                    d="M12 4v16m8-8H4"
+                                                                />
+                                                            </svg>
+                                                        </button>
                                                     </div>
 
-                                                    <!-- <button
-                                                        type="button"
-                                                        @click="addPort()"
-                                                        class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                                                    >
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            class="h-6 w-6"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor"
-                                                            stroke-width="2"
-                                                        >
-                                                            <path
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                                d="M12 4v16m8-8H4"
-                                                            />
-                                                        </svg>
-                                                    </button> -->
+                                                    <JetInputError
+                                                        :message="
+                                                            $page.props.errors
+                                                                .worker
+                                                        "
+                                                        class="mt-2"
+                                                    />
                                                 </div>
                                                 <button
                                                     type="button"
                                                     @click="addWorker()"
-                                                    class="grid place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                    class="inline-flex items-center place-content-center px-2.5 py-1.5 w-full mt-2 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-blue-900 hover:shadow-lg focus:bg-blue-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                                                 >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -518,6 +558,7 @@
                                                             d="M12 4v16m8-8H4"
                                                         />
                                                     </svg>
+                                                    &nbsp;Add Worker
                                                 </button>
 
                                                 <JetButton
@@ -572,12 +613,21 @@ export default {
                 domain: null,
                 server: null,
                 v_tech: null,
-                config_file: [],
+                status: null,
+                config_file: [
+                    {
+                        url: null,
+                    },
+                ],
                 workers: [
                     {
                         name: null,
                         version: null,
-                        ports: [],
+                        // ports: [
+                        //     {
+                        //         no: null,
+                        //     },
+                        // ],
                         health_status: null,
                         status: null,
                     },
@@ -593,7 +643,9 @@ export default {
         },
 
         addConfig() {
-            this.form.config_file.push();
+            this.form.config_file.push({
+                url: null,
+            });
         },
 
         removeConfig(index) {
@@ -604,20 +656,28 @@ export default {
             this.form.workers.push({
                 name: null,
                 version: null,
-                ports: [],
+                ports: [
+                    {
+                        no: null,
+                    },
+                ],
                 health_status: null,
                 status: null,
             });
         },
+
         removeWorker(index) {
             this.form.workers.splice(index, 1);
         },
 
         addPort() {
-            this.form.workers.ports.push();
+            worker.ports.push({
+                no: null,
+            });
         },
+
         removePort(index) {
-            this.form.workers.ports.splice(index, 1);
+            this.ports.splice(index, 1);
         },
     },
 };

@@ -6,7 +6,7 @@
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden m-5">
                             <div
-                                class="bg-blue-100 rounded-lg py-5 px-6 mb-4 text-base text-blue-700 mb-3"
+                                class="bg-blue-100 rounded-lg py-5 px-6 mb-4 text-base text-blue-700"
                                 role="alert"
                             >
                                 Required Field - *
@@ -449,6 +449,20 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="storage"
                                                                                 />
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
+                                                                                        $page
+                                                                                            .props
+                                                                                            .errors[
+                                                                                            "storages." +
+                                                                                                index +
+                                                                                                ".partition"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
 
                                                                             <!-- storage allocated size -->
@@ -462,6 +476,20 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="storage"
                                                                                 />
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
+                                                                                        $page
+                                                                                            .props
+                                                                                            .errors[
+                                                                                            "storages." +
+                                                                                                index +
+                                                                                                ".allocated_size"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
 
                                                                             <!-- storage unit -->
@@ -495,6 +523,20 @@
                                                                                         spacer: 'h-10 box-content',
                                                                                     }"
                                                                                 />
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
+                                                                                        $page
+                                                                                            .props
+                                                                                            .errors[
+                                                                                            "storages." +
+                                                                                                index +
+                                                                                                ".unit"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
 
                                                                             <!-- storage remarks -->
@@ -508,6 +550,20 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="storage"
                                                                                 />
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
+                                                                                        $page
+                                                                                            .props
+                                                                                            .errors[
+                                                                                            "storages." +
+                                                                                                index +
+                                                                                                ".remarks"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
 
                                                                             <!-- storage status -->
@@ -539,6 +595,20 @@
                                                                                         spacer: 'h-10 box-content',
                                                                                     }"
                                                                                 />
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
+                                                                                        $page
+                                                                                            .props
+                                                                                            .errors[
+                                                                                            "storages." +
+                                                                                                index +
+                                                                                                ".status"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
                                                                             <td
                                                                                 v-show="
@@ -672,15 +742,20 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="document_name"
                                                                                 />
-                                                                                <JetInputError
-                                                                                    :message="
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
                                                                                         $page
                                                                                             .props
-                                                                                            .errors
-                                                                                            .document_name
-                                                                                    "
-                                                                                    class="mt-2"
-                                                                                />
+                                                                                            .errors[
+                                                                                            "documents." +
+                                                                                                index +
+                                                                                                ".name"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
                                                                             <td>
                                                                                 <JetInput
@@ -693,15 +768,20 @@
                                                                                     autocomplete="file_url"
                                                                                 />
 
-                                                                                <JetInputError
-                                                                                    :message="
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
                                                                                         $page
                                                                                             .props
-                                                                                            .errors
-                                                                                            .document_url
-                                                                                    "
-                                                                                    class="mt-2"
-                                                                                />
+                                                                                            .errors[
+                                                                                            "documents." +
+                                                                                                index +
+                                                                                                ".url"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
                                                                             <td
                                                                                 class="w-12"
@@ -712,7 +792,7 @@
                                                                             >
                                                                                 <button
                                                                                     type="button"
-                                                                                    class="inline-block px-3 py-1.5 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                                    class="px-3 py-1.5 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                                                                                     @click="
                                                                                         removeDocument(
                                                                                             index
@@ -833,15 +913,21 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="member_name"
                                                                                 />
-                                                                                <JetInputError
-                                                                                    :message="
+
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
                                                                                         $page
                                                                                             .props
-                                                                                            .errors
-                                                                                            .members
-                                                                                    "
-                                                                                    class="mt-2"
-                                                                                />
+                                                                                            .errors[
+                                                                                            "members." +
+                                                                                                index +
+                                                                                                ".name"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
                                                                             <td>
                                                                                 <Multiselect
@@ -869,16 +955,20 @@
                                                                                         spacer: 'h-10 box-content',
                                                                                     }"
                                                                                 />
-
-                                                                                <JetInputError
-                                                                                    :message="
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
                                                                                         $page
                                                                                             .props
-                                                                                            .errors
-                                                                                            .members
-                                                                                    "
-                                                                                    class="mt-2"
-                                                                                />
+                                                                                            .errors[
+                                                                                            "members." +
+                                                                                                index +
+                                                                                                ".status"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
                                                                             <td
                                                                                 class="w-12"
@@ -889,7 +979,7 @@
                                                                             >
                                                                                 <button
                                                                                     type="button"
-                                                                                    class="inline-block px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                                    class="px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                                                                                     @click="
                                                                                         removeMember(
                                                                                             index
@@ -1018,15 +1108,20 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="project_code"
                                                                                 />
-                                                                                <JetInputError
-                                                                                    :message="
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
                                                                                         $page
                                                                                             .props
-                                                                                            .errors
-                                                                                            .project_code
-                                                                                    "
-                                                                                    class="mt-2"
-                                                                                />
+                                                                                            .errors[
+                                                                                            "projects." +
+                                                                                                index +
+                                                                                                ".code"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
 
                                                                             <!-- Project Name -->
@@ -1040,15 +1135,20 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="project_name"
                                                                                 />
-                                                                                <JetInputError
-                                                                                    :message="
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
                                                                                         $page
                                                                                             .props
-                                                                                            .errors
-                                                                                            .project_name
-                                                                                    "
-                                                                                    class="mt-2"
-                                                                                />
+                                                                                            .errors[
+                                                                                            "projects." +
+                                                                                                index +
+                                                                                                ".name"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
 
                                                                             <!-- Project Nature -->
@@ -1062,15 +1162,20 @@
                                                                                     class="block w-full"
                                                                                     autocomplete="nature"
                                                                                 />
-                                                                                <JetInputError
-                                                                                    :message="
+                                                                                <!-- Custom Validation -->
+                                                                                <div
+                                                                                    class="my-2 text-sm text-red-600"
+                                                                                >
+                                                                                    {{
                                                                                         $page
                                                                                             .props
-                                                                                            .errors
-                                                                                            .project_nature
-                                                                                    "
-                                                                                    class="mt-2"
-                                                                                />
+                                                                                            .errors[
+                                                                                            "projects." +
+                                                                                                index +
+                                                                                                ".nature"
+                                                                                        ]
+                                                                                    }}
+                                                                                </div>
                                                                             </td>
 
                                                                             <td
@@ -1082,7 +1187,7 @@
                                                                             >
                                                                                 <button
                                                                                     type="button"
-                                                                                    class="inline-block px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+                                                                                    class="px-2.5 py-2 w-full bg-red-600 grid place-content-center text-white font-medium leading-tight uppercase rounded-md shadow-md hover:bg-red-900 hover:shadow-lg focus:bg-red-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
                                                                                     @click="
                                                                                         removeProject(
                                                                                             index

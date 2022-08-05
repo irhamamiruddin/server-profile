@@ -17,14 +17,13 @@ class Application extends Model
 
     protected $fillable = [
         'name',
-        'description',
-        'version',
-        'ports',
-        'health_status',
-        'health_last_checked',
-        'status',
-        'server_id',
-        'application_detail_id',
+        'domain',
+        'v-technology',
+        'config_file_url',
+    ];
+
+    protected $casts = [
+        'config_file_url' => 'array'
     ];
 
 
@@ -55,6 +54,15 @@ class Application extends Model
         );
     }
 
+    /**
+     * Get all of the workers for the Application
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function workers()
+    {
+        return $this->hasMany(Worker::class);
+    }
 
     public function scopeFilter($query, array $filters)
     {
