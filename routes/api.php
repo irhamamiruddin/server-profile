@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ServerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Server;
@@ -22,5 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/server-list', function (Request $request) {
     $searchName = $request->searchName;
     return response()->json(Server::with('applications')->where('name', 'LIKE', "%$searchName%")
-    ->paginate(5)->toArray());
+        ->paginate(5)->toArray());
 });
+
+Route::get('server-profile', [ServerController::class, 'getServerProfile']);
