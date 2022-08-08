@@ -22,10 +22,10 @@ class ServerController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:server-list|server-show|server-create|server-edit|server-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:server-list|server-show|server-create|server-edit|server-delete', ['only' => ['index', 'store']]);
         $this->middleware('permission:server-show', ['only' => ['show']]);
-        $this->middleware('permission:server-create', ['only' => ['create','store']]);
-        $this->middleware('permission:server-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:server-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:server-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:server-delete', ['only' => ['destroy']]);
     }
 
@@ -36,11 +36,11 @@ class ServerController extends Controller
      */
     public function index(Request $request)
     {
-        $queries = ['search','page'];
+        $queries = ['search', 'page'];
         $servers = Server::filter($request->only($queries))->withTrashed()->paginate(5);
-        $activities = ServerActivity::with('user','type')->orderBy('created_at', 'desc')->paginate(5);
+        $activities = ServerActivity::with('user', 'type')->orderBy('created_at', 'desc')->paginate(5);
 
-        return Inertia::render('Server/Index',compact('servers','activities'));
+        return Inertia::render('Server/Index', compact('servers', 'activities'));
     }
 
     /**
@@ -109,10 +109,10 @@ class ServerController extends Controller
             'projects.*.nature.required_with' => 'Project nature is required when project code is present.',
         ]);
 
-        DB::transaction(function () use ($request){
+        DB::transaction(function () use ($request) {
 
-            $server = $request->only('name','domain','environment','ip_address','port','dns','status');
-            $specification = $request->only('operating_system','vcpu_amount','memory');
+            $server = $request->only('name', 'domain', 'environment', 'ip_address', 'port', 'dns', 'status');
+            $specification = $request->only('operating_system', 'vcpu_amount', 'memory');
             $storages = $request->storages;
             $documents = $request->documents;
             $members = $request->members;
@@ -123,33 +123,31 @@ class ServerController extends Controller
             $specification->storage_details()->createMany($storages);
 
             //save activity log
-            $activity = ActivityType::firstOrCreate(['name'=>Str::snake('create '.$request->name),'description'=>$request->name.' Created']);
-            ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
+            $activity = ActivityType::firstOrCreate(['name' => Str::snake('create ' . $request->name), 'description' => $request->name . ' Created']);
+            ServerActivity::firstOrCreate(['server_id' => $server->id, 'activity_type_id' => $activity->id, 'user_id' => Auth::user()->id]);
 
-            if($documents !== null){
+            if ($documents !== null) {
                 $server->documentations()->createMany($documents);
 
                 //save activity log
-                $activity = ActivityType::firstOrCreate(['name'=>Str::snake('create '.$request->name.' documentations'),'description'=>$request->name.' Documentations Created']);
-                ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
+                $activity = ActivityType::firstOrCreate(['name' => Str::snake('create ' . $request->name . ' documentations'), 'description' => $request->name . ' Documentations Created']);
+                ServerActivity::firstOrCreate(['server_id' => $server->id, 'activity_type_id' => $activity->id, 'user_id' => Auth::user()->id]);
             }
 
-            if($members !== null){
+            if ($members !== null) {
                 $server->members()->createMany($members);
             }
 
-            if($projects !== null){
+            if ($projects !== null) {
                 $server->projects()->createMany($projects);
 
                 //save activity log
-                $activity = ActivityType::firstOrCreate(['name'=>Str::snake('create '.$request->name.' projects'),'description'=>$request->name.' Projects Created']);
-                ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
+                $activity = ActivityType::firstOrCreate(['name' => Str::snake('create ' . $request->name . ' projects'), 'description' => $request->name . ' Projects Created']);
+                ServerActivity::firstOrCreate(['server_id' => $server->id, 'activity_type_id' => $activity->id, 'user_id' => Auth::user()->id]);
             }
-
         });
 
-        return redirect()->route('servers.index')->with('message','Create successful.');
-
+        return redirect()->route('servers.index')->with('message', 'Create successful.');
     }
 
     /**
@@ -161,31 +159,32 @@ class ServerController extends Controller
     public function show($id)
     {
 
-        $server = Server::with('documentations','applications','server_details','members','projects')
-                        ->withTrashed()->find($id);
+        $server = Server::with('documentations', 'applications', 'server_details', 'members', 'projects')
+            ->withTrashed()->find($id);
 
-        $activities = ServerActivity::with('user','type')
-                        ->where('server_id','=',$id)
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(5);
+        $activities = ServerActivity::with('user', 'type')
+            ->where('server_id', '=', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
 
         $isMember = false;
 
         foreach ($server->members as $member) {
-            if(Auth::user()->name == $member->name)
+            if (Auth::user()->name == $member->name)
                 $isMember = true;
         }
 
         $storages = $server->server_details->storage_details()->get();
         $storages = self::_group_by($storages->toArray(), 'partition');
 
-        return Inertia::render('Server/Show',compact('server','activities','storages','isMember'));
+        return Inertia::render('Server/Show', compact('server', 'activities', 'storages', 'isMember'));
     }
 
     // To group by partition
-    private function _group_by($array, $key) {
+    private function _group_by($array, $key)
+    {
         $return = [];
-        foreach($array as $val) {
+        foreach ($array as $val) {
             $return[$val[$key]][] = $val;
         }
         return $return;
@@ -199,12 +198,12 @@ class ServerController extends Controller
      */
     public function edit($id)
     {
-        $server = Server::with('documentations','server_details','members','projects')
-                        ->withTrashed()->find($id);
+        $server = Server::with('documentations', 'server_details', 'members', 'projects')
+            ->withTrashed()->find($id);
 
         $storages = $server->server_details->storage_details()->get();
 
-        return Inertia::render('Server/Edit',compact('server','storages'));
+        return Inertia::render('Server/Edit', compact('server', 'storages'));
     }
 
     /**
@@ -221,10 +220,10 @@ class ServerController extends Controller
         $existingProjectIds = $server->projects->pluck('id');
 
         $request->validate([
-            'name' => 'required|unique:servers,name,'.$id,
-            'domain' => 'required|unique:servers,domain,'.$id,
+            'name' => 'required|unique:servers,name,' . $id,
+            'domain' => 'required|unique:servers,domain,' . $id,
             'environment' => 'required',
-            'ip_address' => 'required|ip|unique:servers,ip_address,'.$id,
+            'ip_address' => 'required|ip|unique:servers,ip_address,' . $id,
             'port' => 'required|numeric',
             'status' => 'required',
             'operating_system' => 'required',
@@ -267,10 +266,10 @@ class ServerController extends Controller
             'projects.*.nature.required_with' => 'Project nature is required when project code is present.',
         ]);
 
-        DB::transaction(function () use ($request,$server,$existingMemberIds,$existingProjectIds){
+        DB::transaction(function () use ($request, $server, $existingMemberIds, $existingProjectIds) {
 
-            $input_server = $request->only('name','domain','environment','ip_address','port','dns','status');
-            $input_specification = $request->only('operating_system','vcpu_amount','memory');
+            $input_server = $request->only('name', 'domain', 'environment', 'ip_address', 'port', 'dns', 'status');
+            $input_specification = $request->only('operating_system', 'vcpu_amount', 'memory');
             $input_storages = $request->storages;
             $input_documents = $request->documents;
             $input_members = $request->members;
@@ -283,8 +282,8 @@ class ServerController extends Controller
             $server->server_details()->update($input_specification);
 
             //save activity log
-            $activity = ActivityType::firstOrCreate(['name'=>Str::snake('update '.$request->name),'description'=>$request->name.' Updated']);
-            ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
+            $activity = ActivityType::firstOrCreate(['name' => Str::snake('update ' . $request->name), 'description' => $request->name . ' Updated']);
+            ServerActivity::firstOrCreate(['server_id' => $server->id, 'activity_type_id' => $activity->id, 'user_id' => Auth::user()->id]);
 
 
             // find which to update/delete/create
@@ -292,7 +291,7 @@ class ServerController extends Controller
             $newStorages = collect([]);
 
 
-            $storages = collect($input_storages)->mapWithKeys(function($storage) use ($newStorages) {
+            $storages = collect($input_storages)->mapWithKeys(function ($storage) use ($newStorages) {
                 if (isset($storage['id'])) {
                     return [$storage['id'] => $storage];
                 } else {
@@ -301,12 +300,11 @@ class ServerController extends Controller
                 }
             });
 
-            foreach($existingStorageIds as $storageId){
+            foreach ($existingStorageIds as $storageId) {
                 if (isset($storages[$storageId])) {
                     // update
                     ServerStorageDetail::find($storageId)->update($storages[$storageId]);
                     unset($storages[$storageId]);
-
                 } else {
                     // delete
                     ServerStorageDetail::find($storageId)->delete();
@@ -317,12 +315,12 @@ class ServerController extends Controller
             // create if new input
             $server->server_details->storage_details()->createMany($newStorages);
 
-            if($input_documents !== null){
+            if ($input_documents !== null) {
 
                 $existingDocumentIds = $server->documentations->pluck('id');
                 $newDocuments = collect([]);
 
-                $documents = collect($input_documents)->mapWithKeys(function($document) use ($newDocuments) {
+                $documents = collect($input_documents)->mapWithKeys(function ($document) use ($newDocuments) {
                     if (isset($document['id'])) {
                         return [$document['id'] => $document];
                     } else {
@@ -331,12 +329,11 @@ class ServerController extends Controller
                     }
                 });
 
-                foreach($existingDocumentIds as $documentId){
+                foreach ($existingDocumentIds as $documentId) {
                     if (isset($documents[$documentId])) {
                         // update
                         Documentation::find($documentId)->update($documents[$documentId]);
                         unset($documents[$documentId]);
-
                     } else {
                         // delete
                         Documentation::find($documentId)->delete();
@@ -348,15 +345,15 @@ class ServerController extends Controller
                 $server->documentations()->createMany($newDocuments);
 
                 //save activity log
-                $activity = ActivityType::firstOrCreate(['name'=>Str::snake('update '.$request->name.' documentations'),'description'=>$request->name.' Documentations Updated']);
-                ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
+                $activity = ActivityType::firstOrCreate(['name' => Str::snake('update ' . $request->name . ' documentations'), 'description' => $request->name . ' Documentations Updated']);
+                ServerActivity::firstOrCreate(['server_id' => $server->id, 'activity_type_id' => $activity->id, 'user_id' => Auth::user()->id]);
             }
 
-            if($input_members !== null){
+            if ($input_members !== null) {
                 // $existingMemberIds = $server->members->pluck('id');
                 $newMembers = collect([]);
 
-                $members = collect($input_members)->mapWithKeys(function($member) use ($newMembers) {
+                $members = collect($input_members)->mapWithKeys(function ($member) use ($newMembers) {
                     if (isset($member['id'])) {
                         return [$member['id'] => $member];
                     } else {
@@ -365,12 +362,11 @@ class ServerController extends Controller
                     }
                 });
 
-                foreach($existingMemberIds as $memberId){
+                foreach ($existingMemberIds as $memberId) {
                     if (isset($members[$memberId])) {
                         // update
                         Member::find($memberId)->update($members[$memberId]);
                         unset($members[$memberId]);
-
                     } else {
                         // delete
                         $server->members()->detach($memberId);
@@ -383,11 +379,11 @@ class ServerController extends Controller
                 $server->members()->createMany($newMembers);
             }
 
-            if($input_projects !== null){
+            if ($input_projects !== null) {
                 // $existingProjectIds = $server->projects->pluck('id');
                 $newProjects = collect([]);
 
-                $projects = collect($input_projects)->mapWithKeys(function($project) use ($newProjects) {
+                $projects = collect($input_projects)->mapWithKeys(function ($project) use ($newProjects) {
                     if (isset($project['id'])) {
                         return [$project['id'] => $project];
                     } else {
@@ -396,12 +392,11 @@ class ServerController extends Controller
                     }
                 });
 
-                foreach($existingProjectIds as $projectId){
+                foreach ($existingProjectIds as $projectId) {
                     if (isset($projects[$projectId])) {
                         // update
                         Project::find($projectId)->update($projects[$projectId]);
                         unset($projects[$projectId]);
-
                     } else {
                         // delete
                         $server->projects()->detach($projectId);
@@ -414,14 +409,13 @@ class ServerController extends Controller
                 $server->projects()->createMany($newProjects);
 
                 //save activity log
-                $activity = ActivityType::firstOrCreate(['name'=>Str::snake('update '.$request->name.' projects'),'description'=>$request->name.' Projects Updated']);
-                ServerActivity::firstOrCreate(['server_id'=>$server->id,'activity_type_id'=>$activity->id,'user_id'=>Auth::user()->id]);
+                $activity = ActivityType::firstOrCreate(['name' => Str::snake('update ' . $request->name . ' projects'), 'description' => $request->name . ' Projects Updated']);
+                ServerActivity::firstOrCreate(['server_id' => $server->id, 'activity_type_id' => $activity->id, 'user_id' => Auth::user()->id]);
             }
-
         });
 
 
-        return redirect()->route('servers.index')->with('message','Update successful.');
+        return redirect()->route('servers.index')->with('message', 'Update successful.');
     }
 
     /**
@@ -433,13 +427,20 @@ class ServerController extends Controller
     public function destroy($id)
     {
         Server::find($id)->delete();
-        return back()->with('message','Deleted successfully!');
+        return back()->with('message', 'Deleted successfully!');
     }
 
     public function restore($id)
-	{
-		Server::withTrashed()->find($id)->restore();
-		return back()->with('message','Data restored!');
-	}
+    {
+        Server::withTrashed()->find($id)->restore();
+        return back()->with('message', 'Data restored!');
+    }
 
+    public function getServerProfile(Request $request)
+    {
+        // $limit = $request->input('limit', 5);
+
+        $data = Server::get();
+        return response()->json($data);
+    }
 }
